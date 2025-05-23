@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patrick Shen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto Mono', monospace;
+      margin: 0;
+      background: #fff;
+      color: #000;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .profile {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .profile img {
+      border-radius: 90%;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .profile h1 {
+      margin: 20px 0 5px;
+      font-size: 2.5rem;
+      text-transform: lowercase;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    .profile p {
+      font-style: italic;
+      color: #555;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    .social-icons {
+      margin-top: 10px;
+    }
+
+    .social-icons a {
+      margin: 0 8px;
+      font-size: 1.2rem;
+      color: #000;
+      text-decoration: none;
+    }
+
+    .timeline {
+      border-left: 2px solid #ccc;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .timeline-entry {
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .timeline-entry::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background: #000;
+      border-radius: 50%;
+      position: absolute;
+      left: -28px;
+      top: 5px;
+    }
+
+    .timeline-year {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #888;
+    }
+
+    .timeline-entry img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    .projects {
+      margin-top: 60px;
+    }
+
+    .projects h2 {
+      text-align: center;
+      text-transform: lowercase;
+    }
+
+    .project-item {
+      margin: 20px 0;
+    }
+
+    .project-item h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      text-transform: lowercase;
+    }
+
+    .project-item p {
+      margin: 5px 0 0;
+      color: #444;
+    }
+
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .misc {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .misc-item {
+      margin: 0;
+      font-size: 1.0rem;
+      text-transform: lowercase;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="profile">
+      <img src="me2.jpg" alt="Patrick Shen" />
+      <h1>patrick shen</h1>
+      <p>hi</p>
+      <p>我喜欢作酷的东西来解决问题</p>
+      <p>pzshen44@gmail.com</p>
+      <div class="social-icons">
+        <a href="mailto:pzshen44@gmail.com">🌐</a>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-entry">
+        <div class="timeline-year">2024 - 2027</div>
+        <p><img src="Purdue_Boilermakers_logo.svg.png" alt="" /><b>Purdue University</b> - B.S. in Electrical Engineering at Purdue University with a focus on machine learning, AI, and software.</p>
+      </div>
+      <div class="timeline-entry">
+        <div class="timeline-year">2020 - 2024</div>
+        <p><img src="11101.png" alt="" /><b>Barrington High School</b> - student</p>
+        </div>
+    </div>
+
+    <div class="projects">
+      <h2>some projects i've done</h2>
+      <div class="project-item">
+        <h3><a href="#####"><u>TrackSwipe</u></a></h3>
+        <p>
+          A React web app to clean up messy Spotify playlists. Used Spotify Web API + OAuth PKCE to load playlists and swipe tracks like Tinder. Built with TypeScript, styled-components, and real-time updates.
+        </p>
+      </div>
+
+    <div class="project-item">
+      <h3><a href="https://github.com/pshen44/carlaHIPdetection" target="_blank"><u>GPT-4.1 HIP detection using CARLA (ongoing)</u></a></h3>
+      <p>
+          Researching how LLMs can be used to spot road hazards in the CARLA driving simulator with GPT-4.1 utilizing OpenAI's API. Modeling custom 3D vehicles/signs and training a neural network using NumPy and PyTorch.
+      </p>
+    </div>
+      <div class="project-item">
+        <h3><a href="https://www.youtube.com/watch?v=-_8MtJ6WujI" target="_blank"><u>autonomous rc drone</u></a></h3>
+        <p>Repurposed a Parrot Jumping Sumo with Arduino, an RGB cam, and some TensorFlow. Built a basic vision + obstacle avoidance system for indoor nav. It's currently retired (aka sitting in my closet).
+        </p>
+      </div>
+    </div>
+    <div class="project-item">
+      <h3><a href="#"><u>goggin-gpt</u></a></h3>
+      <p>
+        Creating a generative pre-trained transformer (GPT) model. The model is trained on a custom dataset of motivational quotes and phrases.
+        It will motivate anyone.
+      </p>
+    </div>
+
+
+    <div class="misc">
+        <h2>misc</h2>
+        <div class="misc-item">
+        <ul>
+            <li>i love lifting weights and sand volleyball</li>
+            <li>formula one!</li>
+            <li>dream car is aston martin vantage 2022 f1 edition coupe configuration, simply the best <a href="https://static0.carbuzzimages.com/wordpress/wp-content/uploads/gallery-images/original/689000/500/689530.jpg" target="_blank"><u>facelift</u></a></li>
+            <li>this is a simple html website coded from scratch that is responsive, minimal, and very very <a href="https://www.youtube.com/watch?v=_eM3E1-OEQk&ab_channel=CBrofilms" target="_blank"><u>fast</u></a>. no flashy animations, libraries, apis, etc. </li>
+            </li>
+        </ul>
+    </div>
+  </div>
+<script type="text/javascript" src="https://counter.websiteout.com/js/36/5/50/0"></script>
+</body>
+</html>
