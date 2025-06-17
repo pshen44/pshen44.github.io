@@ -47,12 +47,43 @@
 
     .social-icons {
       margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
     }
 
     .social-icons a {
       margin: 0 8px;
       font-size: 1.2rem;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .social-icons .email-btn {
+      font-size: 2rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      transition: background 0.2s;
+    }
+    .social-icons .email-btn:hover {
+      background: #e0e0e0;
+    }
+
+    .icon-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      margin: 32px 0 0 0;
+    }
+    .icon-row img {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
     }
 
     .timeline {
@@ -135,6 +166,22 @@
       text-transform: lowercase;
       text-align: left;
     }
+
+    .icon-link {
+      display: inline-block;
+      margin: 0 10px;
+      vertical-align: middle;
+      transition: transform 0.15s;
+    }
+    .icon-link:hover {
+      transform: scale(1.12);
+    }
+    .icon-link img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -146,15 +193,20 @@
       <p>我喜欢作酷的东西来解决问题</p>
       <p>pzshen44@gmail.com</p>
       <div class="social-icons">
-        <a href="mailto:pzshen44@gmail.com">✉️</a>
-        <a href="https://www.linkedin.com/in/patrickzshen/" target="_blank">LinkedIn</a>
+        <a href="mailto:pzshen44@gmail.com" class="icon-link" title="Email" style="font-size:2rem;line-height:1;">📧</a>
+        <a href="https://www.linkedin.com/in/patrickzshen/" class="icon-link" target="_blank" title="LinkedIn">
+          <img src="images/linkedin_logo.png" alt="LinkedIn" />
+        </a>
+        <a href="https://github.com/pshen44" class="icon-link" target="_blank" title="GitHub">
+          <img src="images/github_logo.png" alt="GitHub" />
+        </a>
       </div>
     </div>
 
     <div class="timeline">
       <div class="timeline-entry">
-        <div class="timeline-year">2024 - 2027</div>
-        <p><img src="images/Purdue_Boilermakers_logo.svg.png" alt="" /><b>Purdue University</b> - B.S. in Electrical Engineering at Purdue University with a focus on machine learning, AI, and software.</p>
+        <div class="timeline-year">2024 - 2028</div>
+        <p><img src="images/Purdue_Boilermakers_logo.svg.png" alt="" /><b>Purdue University</b> - B.S. in Computer Engineering at Purdue University with a focus on machine learning, AI, and software.</p>
       </div>
       <div class="timeline-entry">
         <div class="timeline-year">2020 - 2024</div>
