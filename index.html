@@ -182,6 +182,69 @@
       object-fit: contain;
       display: block;
     }
+
+    .resume-section {
+      margin-top: 60px;
+    }
+
+    .resume-section h2 {
+      text-align: center;
+      text-transform: lowercase;
+      margin-bottom: 30px;
+    }
+
+    .email-container {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .email-form {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .email-input {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: 'Roboto Mono', monospace;
+      flex: 1;
+      max-width: 250px;
+    }
+
+    .email-btn {
+      padding: 8px 16px;
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: 'Roboto Mono', monospace;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .email-btn:hover {
+      background: #e0e0e0;
+    }
+
+    .download-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #0066cc;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-family: 'Roboto Mono', monospace;
+      transition: background 0.2s;
+    }
+
+    .download-btn:hover {
+      background: #0052a3;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -217,7 +280,7 @@
     <div class="projects">
       <h2>some projects i've done</h2>
       <div class="project-item">
-        <h3><a href="#####"><u>TrackSwipe</u></a></h3>
+        <h3><a href="https://trackswipe.vercel.app/"><u>TrackSwipe</u></a></h3>
         <p>
           A React web app to clean up messy Spotify playlists. Used Spotify Web API + OAuth PKCE to load playlists and swipe tracks like Tinder. Built with TypeScript, styled-components, and real-time updates.
         </p>
@@ -255,7 +318,65 @@
             </li>
         </ul>
     </div>
+
+    <div class="resume-section">
+        <h2>resume</h2>
+        <div class="email-container">
+            <p style="text-align: center; margin-bottom: 20px;">enter your email to download my resume</p>
+            <div class="email-form">
+                <input type="email" id="userEmail" placeholder="your email" class="email-input" required>
+                <button onclick="requestResume()" class="email-btn">get resume</button>
+            </div>
+            <div id="downloadSection" class="download-section" style="display: none;">
+                <p style="text-align: center; color: #666; margin: 20px 0;">thanks! here's your download:</p>
+                <div style="text-align: center;">
+                    <a href="resume.pdf" download class="download-btn">📄 download resume</a>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 <script type="text/javascript" src="https://counter.websiteout.com/js/36/5/50/0"></script>
+
+<script>
+function requestResume() {
+    const email = document.getElementById('userEmail').value;
+    
+    
+    // Send email to Formspree
+    fetch('https://formspree.io/f/xvgrwzwb', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            message: 'Resume download request from website',
+            _subject: 'Resume Request - ' + email
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            // Show download section
+            document.getElementById('downloadSection').style.display = 'block';
+            document.getElementById('userEmail').value = '';
+            console.log('Email sent successfully:', email);
+        } else {
+            alert('There was an error. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error. Please try again.');
+    });
+}
+
+// Allow Enter key to submit email
+document.getElementById('userEmail').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        requestResume();
+    }
+});
+</script>
 </body>
 </html>
