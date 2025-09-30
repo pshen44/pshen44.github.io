@@ -568,67 +568,70 @@
       display: block;
     }
 
-    .resume-section {
+    .contact-section {
       margin-top: 60px;
     }
 
-    .resume-section h2 {
+    .contact-section h2 {
       text-align: center;
       text-transform: lowercase;
       margin-bottom: 30px;
     }
 
-    .email-container {
-      max-width: 400px;
+    .contact-container {
+      max-width: 500px;
       margin: 0 auto;
-      text-align: center;
     }
 
-    .email-form {
+    .contact-form {
       display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 20px;
+      flex-direction: column;
+      gap: 15px;
     }
 
-    .email-input {
-      padding: 8px 12px;
-      border: 1px solid #ccc;
+    .form-input {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
       border-radius: 4px;
       font-family: 'Roboto Mono', monospace;
-      flex: 1;
-      max-width: 250px;
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 0.95rem;
     }
 
-    .email-btn {
-      padding: 8px 16px;
-      background: #f0f0f0;
-      border: 1px solid #ccc;
+    .form-textarea {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
       border-radius: 4px;
       font-family: 'Roboto Mono', monospace;
-      cursor: pointer;
-      transition: background 0.2s;
-      white-space: nowrap;
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 120px;
     }
 
-    .email-btn:hover {
-      background: #e0e0e0;
-    }
-
-    .download-btn {
-      display: inline-block;
+    .submit-btn {
       padding: 12px 24px;
       background: var(--accent);
       color: white;
-      text-decoration: none;
+      border: none;
       border-radius: 6px;
       font-family: 'Roboto Mono', monospace;
+      cursor: pointer;
       transition: background 0.2s;
+      font-size: 1rem;
     }
 
-    .download-btn:hover {
+    .submit-btn:hover {
       background: #0052a3;
-      text-decoration: none;
+    }
+
+    .success-message {
+      text-align: center;
+      color: #28a745;
+      margin-top: 15px;
+      font-size: 0.95rem;
     }
   </style>
 </head>
@@ -752,21 +755,24 @@
         </ul>
     </div>
 
-    <div class="resume-section">
-        <h2>resume</h2>
-        <div class="email-container">
-            <p style="text-align: center; margin-bottom: 20px;">enter your email to download my resume</p>
-            <div class="email-form">
+    <div class="contact-section">
+        <h2>contact me</h2>
+        <div class="contact-container">
+            <form class="contact-form" onsubmit="sendMessage(event)">
+                <label for="userName" class="sr-only">Name</label>
+                <input type="text" id="userName" placeholder="your name" class="form-input" required>
+                
                 <label for="userEmail" class="sr-only">Email</label>
-                <input type="email" id="userEmail" placeholder="your email" class="email-input" required>
-                <button onclick="requestResume()" class="email-btn">get resume</button>
-            </div>
+                <input type="email" id="userEmail" placeholder="your email" class="form-input" required>
+                
+                <label for="userMessage" class="sr-only">Message</label>
+                <textarea id="userMessage" placeholder="your message" class="form-textarea" required></textarea>
+                
+                <button type="submit" class="submit-btn">send message</button>
+            </form>
             <div id="statusMsg" class="sr-only" aria-live="polite"></div>
-            <div id="downloadSection" class="download-section" style="display: none;">
-                <p style="text-align: center; color: #666; margin: 20px 0;">thanks! here's your download:</p>
-                <div style="text-align: center;">
-                    <a href="resume.pdf" download class="download-btn">📄 download resume</a>
-                </div>
+            <div id="successMsg" style="display: none;" class="success-message">
+                ✓ message sent successfully! i'll get back to you soon.
             </div>
         </div>
     </div>
@@ -778,36 +784,55 @@
 <script type="text/javascript" src="https://counter.websiteout.com/js/36/5/50/0"></script>
 
 <script>
-function requestResume() {
-    const email = document.getElementById('userEmail').value;
+function sendMessage(event) {
+    event.preventDefault();
     
-    if (!email || !email.includes('@')) {
+    const name = document.getElementById('userName').value;
+    const email = document.getElementById('userEmail').value;
+    const message = document.getElementById('userMessage').value;
+    
+    if (!name || !email || !message) {
+        alert('Please fill out all fields');
+        const status = document.getElementById('statusMsg');
+        if (status) status.textContent = 'Please fill out all fields.';
+        return;
+    }
+    
+    if (!email.includes('@')) {
         alert('Please enter a valid email address');
         const status = document.getElementById('statusMsg');
         if (status) status.textContent = 'Please enter a valid email address.';
         return;
     }
     
-    // Send email to Formspree
+    // Send message to Formspree
     fetch('https://formspree.io/f/xvgrwzwb', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+            name: name,
             email: email,
-            message: 'Resume download request from website',
-            _subject: 'Resume Request - ' + email
+            message: message,
+            _subject: 'Contact Form - ' + name
         })
     })
     .then(response => {
         if (response.ok) {
-            // Show download section
-            document.getElementById('downloadSection').style.display = 'block';
+            // Show success message
+            document.getElementById('successMsg').style.display = 'block';
+            // Clear form
+            document.getElementById('userName').value = '';
             document.getElementById('userEmail').value = '';
-            console.log('Email sent successfully:', email);
+            document.getElementById('userMessage').value = '';
+            console.log('Message sent successfully');
             const status = document.getElementById('statusMsg');
-            if (status) status.textContent = "Thanks! Here's your download link.";
+            if (status) status.textContent = 'Message sent successfully!';
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMsg').style.display = 'none';
+            }, 5000);
         } else {
             alert('There was an error. Please try again.');
             const status = document.getElementById('statusMsg');
@@ -821,13 +846,6 @@ function requestResume() {
         if (status) status.textContent = 'There was an error. Please try again.';
     });
 }
-
-// Allow Enter key to submit email
-document.getElementById('userEmail').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        requestResume();
-    }
-});
 
 // Typewriter effect for Chinese text with pinyin
 function typeWriter() {
