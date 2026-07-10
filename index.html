@@ -110,23 +110,9 @@
       z-index: 10000;
     }
 
-    .laser-trail {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #40E0D0, #708090);
-      box-shadow: 0 0 10px #40E0D0;
-      pointer-events: none;
-      z-index: 9998;
-      animation: fadeOut 0.8s ease-out forwards;
-    }
-
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        transform: scale(0);
-      }
+    body.car-cursor-active,
+    body.car-cursor-active * {
+      cursor: none;
     }
 
     .container {
@@ -327,6 +313,14 @@
       background: linear-gradient(to right, rgba(255, 153, 0, 0.15), transparent);
     }
 
+    .current-item.border-deere::before {
+      background: linear-gradient(to right, rgba(54, 124, 43, 0.15), transparent);
+    }
+
+    .current-item.border-roblox::before {
+      background: linear-gradient(to right, rgba(0, 162, 255, 0.15), transparent);
+    }
+
     .current-item > * {
       position: relative;
       z-index: 2;
@@ -380,6 +374,13 @@
       left: -200px;
     }
 
+    .project-item .hover-gif.purdue-logo {
+      filter: none;
+      width: auto;
+      height: 80px;
+      left: -150px;
+    }
+
     .current-item h3 {
       margin: 0 0 10px 0;
       font-size: 1.1rem;
@@ -412,6 +413,14 @@
 
     .current-item.border-aws {
       border-left-color: #FF9900;
+    }
+
+    .current-item.border-deere {
+      border-left-color: #367C2B;
+    }
+
+    .current-item.border-roblox {
+      border-left-color: #00A2FF;
     }
 
     .projects {
@@ -447,6 +456,10 @@
 
     .project-item:hover::before {
       width: 100%;
+    }
+
+    .project-item.border-rtx::before {
+      background: linear-gradient(to right, rgba(243, 243, 243, 0.15), transparent);
     }
 
     .project-item.border-abl::before {
@@ -511,6 +524,10 @@
     }
 
     /* Custom border colors for projects */
+    .project-item.border-rtx {
+      border-left-color: var(--fg);
+    }
+
     .project-item.border-abl {
       border-left-color: #DC143C;
     }
@@ -656,8 +673,8 @@
 
     <div class="timeline">
       <div class="timeline-entry">
-        <div class="timeline-year">2024 - 2028</div>
-        <p><img src="images/Purdue_Boilermakers_logo.svg.png" alt="" width="40" height="40" loading="lazy" /><b>Purdue University</b> - B.S. in <b>Computer Engineering</b> with a focus on machine learning, AI, and software.</p>
+        <div class="timeline-year">2024 - 2027</div>
+        <p><img src="images/Purdue_Boilermakers_logo.svg.png" alt="" width="40" height="40" loading="lazy" /><b>Purdue University</b> - B.S. in <b>Computer Engineering</b> with a focus on machine learning, AI, and software. 4x Dean's List & Semester Honors.</p>
       </div>
       <div class="timeline-entry">
         <div class="timeline-year">2020 - 2024</div>
@@ -667,20 +684,18 @@
 
     <div class="currently">
       <h2 id="currently-heading">what i'm up to right now</h2>
-      <div class="current-item border-rtx" id="rtx-item">
-        <img src="images/raytheon.png" alt="RTX" class="hover-gif" id="rtx-gif">
-        <h3>📻 ml researcher @ RTX (Purdue Data Mine)</h3>
-        <p><i>August 2025 – Present</i></p>
+      <div class="current-item border-deere" id="deere-item">
+        <h3>🚜 swe intern @ John Deere</h3>
+        <p><i>May 2026 – Present</i></p>
         <p>
-          Creating machine learning models to predict radio frequency signal propagation.
+          Building full-stack tools (React, TypeScript) plus search, indexing, and authorization for John Deere's Unified Data Platform — 90K+ data assets, 2,250+ users.
         </p>
       </div>
-      <div class="current-item border-purdue" id="purdue-item">
-        <img src="images/Purdue_Boilermakers_logo.svg.png" alt="Purdue" class="hover-gif purdue-logo" id="purdue-gif">
-        <h3>🚙 software integration researcher @ Purdue Digital Twin Lab</h3>
-        <p><i>December 2024 – Present</i></p>
+      <div class="current-item border-roblox" id="ppl-item">
+        <h3>🎮 founder @ PPL Studios</h3>
+        <p><i>April 2026 – Present</i></p>
         <p>
-          Researching Vehicle-To-Vehicle (V2V) communication for autonomous vehicles, after previous project.
+          Running 4 live multiplayer Roblox games with 10K+ combined visits, 320 peak concurrent players, and $2K+ revenue. Built with Luau and AI dev workflows (Claude Code, MCP, n8n).
         </p>
       </div>
       <div class="current-item border-perplexity" id="perplexity-item">
@@ -703,6 +718,14 @@
 
     <div class="projects">
       <h2>some things i've done</h2>
+      <div class="project-item border-rtx" id="rtx-item">
+        <img src="images/raytheon.png" alt="RTX" class="hover-gif" id="rtx-gif">
+        <h3>📻 ml researcher @ RTX (Purdue Data Mine)</h3>
+        <p><i>August 2025 – May 2026</i></p>
+        <p>
+          Built machine learning models (Attention U-Net, PyTorch) predicting radio frequency signal coverage 90x faster than physics-based models.
+        </p>
+      </div>
       <div class="project-item border-abl" id="abl-item">
         <img src="images/abl.png" alt="American Bear Logistics" class="hover-gif" id="abl-gif">
         <h3>🚚 SWE Intern @ American Bear Logistics</h3>
@@ -711,18 +734,19 @@
           Developed Python pipelines to automate data extraction and processing.
         </p>
       </div>
-      <div class="project-item border-purdue">
+      <div class="project-item border-purdue" id="purdue-item">
+        <img src="images/Purdue_Boilermakers_logo.svg.png" alt="Purdue" class="hover-gif purdue-logo" id="purdue-gif">
         <h3>🚔 <a href="https://github.com/pshen44/carlaHIPdetection" target="_blank" rel="noopener noreferrer"><u>undergraduate researcher @ Purdue Digital Twin Lab</u></a></h3>
         <p><i>December 2024 – May 2025</i></p>
         <p>
-          Researched how LLMs can help detect road anomalies in autonomous vehicles.
+          Researched how LLMs can help detect road anomalies in autonomous vehicles, plus Vehicle-To-Vehicle (V2V) communication.
         </p>
       </div>
       <div class="project-item border-trackswipe">
         <h3>🎵 <a href="https://trackswipe.vercel.app/"><u>TrackSwipe</u></a></h3>
         <p><i>April 2025 – August 2025</i></p>
         <p>
-          A React web app to clean up messy Spotify playlists by swiping left or right.
+          A React web app to clean up messy Spotify playlists by swiping left or right. 200+ users and 900+ logins since launch.
         </p>
       </div>
       <div class="project-item border-drone">
@@ -998,7 +1022,8 @@ function typeDotsSlowly() {
 // Start dots animation when page loads
 window.addEventListener('load', typeDotsSlowly);
 
-// Race car cursor with laser trail
+// Race car cursor — the car IS the cursor: follows the mouse 1:1, rotates toward travel direction.
+// The CSS transition on transform smooths the rotation; position updates are instant so there's no lag.
 (function() {
     const racecar = document.createElement('img');
     racecar.className = 'racecar-cursor';
@@ -1011,93 +1036,43 @@ window.addEventListener('load', typeDotsSlowly);
     let carActive = true;
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
-    let carX = window.innerWidth / 2;
-    let carY = window.innerHeight / 2;
-    let lastX = carX;
-    let lastY = carY;
-    let lastTrailTime = 0;
-    let targetX = mouseX;
-    let targetY = mouseY;
-    let velocityX = 0;
-    let velocityY = 0;
+    let lastX = mouseX;
+    let lastY = mouseY;
+    let angle = 0;
+
+    document.body.classList.add('car-cursor-active');
 
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
     });
 
-    // Pit stop click handler
+    // Pit stop click handler — parks the car and brings back the normal cursor
     pitStop.addEventListener('click', () => {
         carActive = !carActive;
-        if (carActive) {
-            racecar.classList.remove('inactive');
-            pitStop.classList.add('car-active');
-            // Position car at pit stop initially
-            const rect = pitStop.getBoundingClientRect();
-            carX = rect.left + rect.width / 2;
-            carY = rect.top + rect.height / 2;
-            targetX = carX;
-            targetY = carY;
-            velocityX = 0;
-            velocityY = 0;
-        } else {
-            racecar.classList.add('inactive');
-            pitStop.classList.remove('car-active');
-        }
+        racecar.classList.toggle('inactive', !carActive);
+        pitStop.classList.toggle('car-active', carActive);
+        document.body.classList.toggle('car-cursor-active', carActive);
     });
 
     function updateCarPosition() {
-        // Smooth interpolation towards cursor position
-        targetX += (mouseX - targetX) * 0.15;
-        targetY += (mouseY - targetY) * 0.15;
-
-        // Calculate velocity with acceleration
-        const dx = targetX - carX;
-        const dy = targetY - carY;
-        
-        velocityX += dx * 0.008;
-        velocityY += dy * 0.008;
-        
-        // Apply damping to velocity
-        velocityX *= 0.92;
-        velocityY *= 0.92;
-        
-        // Update car position
-        carX += velocityX;
-        carY += velocityY;
-
-        // Create laser trail periodically only if car is active
-        if (carActive) {
-            const now = Date.now();
-            if (now - lastTrailTime > 20) { // Create trail every 20ms
-                const trail = document.createElement('div');
-                trail.className = 'laser-trail';
-                trail.style.left = (carX - 3) + 'px';
-                trail.style.top = (carY + 4) + 'px';
-                document.body.appendChild(trail);
-
-                // Remove trail after animation
-                setTimeout(() => {
-                    trail.remove();
-                }, 800);
-
-                lastTrailTime = now;
-            }
+        // Only re-aim after meaningful movement so the car doesn't jitter when the mouse is still
+        const dx = mouseX - lastX;
+        const dy = mouseY - lastY;
+        if (Math.hypot(dx, dy) > 2) {
+            const target = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+            // Take the shortest rotation path so crossing ±180° never spins the long way around
+            let delta = (target - angle) % 360;
+            if (delta > 180) delta -= 360;
+            if (delta < -180) delta += 360;
+            angle += delta;
+            lastX = mouseX;
+            lastY = mouseY;
         }
 
-        // Calculate rotation based on movement direction
-        const moveDx = carX - lastX;
-        const moveDy = carY - lastY;
-        if (Math.abs(moveDx) > 0.1 || Math.abs(moveDy) > 0.1) {
-            const angle = Math.atan2(moveDy, moveDx) * (180 / Math.PI);
-            racecar.style.transform = `rotate(${angle + 90}deg)`; // Add 180 to make front of car follow cursor
-        }
-
-        racecar.style.left = (carX - 25) + 'px';
-        racecar.style.top = (carY - 25) + 'px';
-
-        lastX = carX;
-        lastY = carY;
+        racecar.style.transform = `rotate(${angle}deg)`;
+        racecar.style.left = (mouseX - 25) + 'px';
+        racecar.style.top = (mouseY - 25) + 'px';
 
         requestAnimationFrame(updateCarPosition);
     }
