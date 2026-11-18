@@ -4,874 +4,570 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Patrick Shen</title>
-  <meta name="description" content="Patrick Shen — minimalist portfolio. ML, AI, and software projects." />
-  <meta property="og:title" content="Patrick Shen — Portfolio" />
-  <meta property="og:description" content="ML, AI, and software projects with a minimalist aesthetic." />
+  <meta name="description" content="Patrick Shen — Computer Engineering @ Purdue. ML, AI, and software." />
+  <meta property="og:title" content="Patrick Shen" />
+  <meta property="og:description" content="Computer Engineering @ Purdue. ML, AI, and software." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="images/me2.JPG" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#0b0b0b" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👋</text></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #ffffff;
-      --fg: #0b0b0b;
+      --fg: #111111;
       --muted: #666666;
-      --border: #e6e6e6;
-      --accent: #0066cc;
+      --line: #dddddd;
+      --band: #eeeeee;
+      --accent: #1a5fb4;
+      --online: #22c55e;
+      --offline: #9ca3af;
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #1a1a1a;
-        --fg: #f3f3f3;
-        --muted: #a1a1a1;
-        --border: #333333;
-        --accent: #4da3ff;
+        --bg: #161616;
+        --fg: #ececec;
+        --muted: #9a9a9a;
+        --line: #333333;
+        --band: #202020;
+        --accent: #6aa8ff;
+        --offline: #6b7280;
       }
+      /* bg #e9e9e9 inverts to the dark page color, so the line stays hidden behind the logo */
+      .ico img.invert-dark { filter: invert(1); background: #e9e9e9; }
+      .ico img.light-chip { background: #f3f3f3; border-radius: 6px; padding: 4px; }
+    }
+    @media (prefers-color-scheme: light) {
+      #dico img.github { filter: invert(1); }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 0;
     }
 
     .sr-only {
       position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
       overflow: hidden;
       clip: rect(0, 0, 0, 0);
       white-space: nowrap;
       border: 0;
     }
-    body {
-      font-family: 'Roboto Mono', monospace;
-      margin: 0;
-      background: var(--bg);
-      color: var(--fg);
-      line-height: 1.6;
-    }
 
-    .racecar-cursor {
-      position: fixed;
-      width: 30px;
-      height: 30px;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s ease, opacity 0.3s ease;
-      opacity: 1;
-    }
-
-    .racecar-cursor.inactive {
-      opacity: 0;
-    }
-
-    .pit-stop {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
-      border: 3px dashed #40E0D0;
-      border-radius: 12px;
+    /* ---------- header ---------- */
+    #dhead {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(64, 224, 208, 0.3);
-      z-index: 10000;
-    }
-
-    .pit-stop:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(64, 224, 208, 0.5);
-      border-color: #5ff5e3;
-    }
-
-    .pit-stop.car-active {
-      background: linear-gradient(135deg, #40E0D0 0%, #20B2AA 100%);
-      border-style: solid;
-    }
-
-    .pit-stop-label {
-      position: fixed;
-      bottom: 105px;
-      right: 20px;
-      font-size: 11px;
-      font-family: 'Roboto Mono', monospace;
-      color: var(--muted);
-      text-align: center;
-      width: 80px;
-      pointer-events: none;
-      z-index: 10000;
-    }
-
-    body.car-cursor-active,
-    body.car-cursor-active * {
-      cursor: none;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    .profile {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .profile img {
-      border-radius: 90%;
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .profile h1 {
-      margin: 20px 0 5px;
-      font-size: 2.5rem;
-      text-transform: lowercase;
-      font-family: 'Roboto Mono', monospace;
-    }
-
-    .profile p {
-      font-style: italic;
-      color: var(--muted);
-      font-family: 'Roboto Mono', monospace;
-    }
-
-    .social-icons {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .social-icons a {
-      margin: 0 8px;
-      font-size: 1.2rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    .social-icons .email-btn {
-      font-size: 2rem;
-      padding: 8px 16px;
-      border-radius: 8px;
-      background: #f0f0f0;
-      border: 1px solid #ccc;
-      transition: background 0.2s;
-    }
-    .social-icons .email-btn:hover {
-      background: #e0e0e0;
-    }
-
-    .icon-row {
-      display: flex;
-      justify-content: center;
       align-items: center;
       gap: 32px;
-      margin: 32px 0 0 0;
-    }
-    .icon-row img {
-      width: 90px;
-      height: 90px;
-      object-fit: contain;
+      padding-top: 48px;
+      padding-bottom: 40px;
     }
 
-    .timeline {
-      border-left: 2px solid var(--border);
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .timeline-entry {
-      margin-bottom: 40px;
-      position: relative;
-    }
-
-    .timeline-entry::before {
-      content: "";
-      width: 12px;
-      height: 12px;
-      background: var(--fg);
+    .ppic {
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
-      position: absolute;
-      left: -28px;
-      top: 5px;
+      object-fit: cover;
+      flex-shrink: 0;
     }
 
-    .timeline-year {
-      font-weight: bold;
-      margin-bottom: 5px;
+    #ddesc h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .tagline {
+      margin: 6px 0 0;
+      font-size: 1.1rem;
+      font-weight: 400;
       color: var(--muted);
-    }
-
-    .timeline-entry img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
-      vertical-align: middle;
-      margin-right: 10px;
-    }
-
-    .currently {
-      margin-top: 60px;
-    }
-
-    .currently h2 {
-      text-align: center;
-      text-transform: lowercase;
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
-
-    .currently h2::after {
-      content: '█';
-      margin-left: 5px;
-      animation: blink 1s step-end infinite;
-    }
-
-    @keyframes blink {
-      0%, 50% {
-        opacity: 1;
-      }
-      51%, 100% {
-        opacity: 0;
-      }
-    }
-
-    .typewriter {
-      min-height: 1.6em;
-      display: block;
-      text-align: center;
+      min-height: 1.5em;
     }
 
     .typewriter::after {
       content: '|';
       animation: blink 0.7s step-end infinite;
     }
-
-    .typewriter.hide-cursor::after {
-      content: '';
-    }
-
+    .typewriter.hide-cursor::after { content: ''; }
     .typewriter.highlight {
       background: var(--accent);
       color: var(--bg);
       padding: 0 2px;
     }
+    @keyframes blink { 50% { opacity: 0; } }
 
-    .current-item {
-      margin: 30px 0;
-      padding: 20px;
-      border-left: 4px solid var(--fg);
-      background: rgba(0, 102, 204, 0.03);
-      position: relative;
-      overflow: visible;
-      transition: background 0.5s ease;
+    #dico {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    #dico a { display: inline-flex; transition: transform 0.15s; }
+    #dico a:hover { transform: scale(1.1); text-decoration: none; }
+    #dico img { width: 30px; height: 30px; object-fit: contain; }
+    #dico .email-ico { font-size: 1.7rem; line-height: 1; }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 18px;
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: var(--muted);
     }
 
-    .current-item::before {
+    /* pc status pill */
+    .pc-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.8rem;
+      padding: 3px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+    }
+    .pc-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--offline);
+      position: relative;
+    }
+    .pc-status.online .pc-dot { background: var(--online); }
+    .pc-status.online .pc-dot::after {
       content: '';
       position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 0;
-      transition: width 0.5s ease;
-      pointer-events: none;
-      z-index: 1;
+      inset: 0;
+      border-radius: 50%;
+      background: var(--online);
+      animation: ping 1.8s ease-out infinite;
+    }
+    @keyframes ping {
+      0% { transform: scale(1); opacity: 0.7; }
+      100% { transform: scale(2.6); opacity: 0; }
     }
 
-    .current-item:hover::before {
-      width: 100%;
-    }
+    /* ---------- timeline ---------- */
+    #history { padding-top: 36px; padding-bottom: 12px; }
 
-    .current-item.border-rtx::before {
-      background: linear-gradient(to right, rgba(243, 243, 243, 0.15), transparent);
-    }
-
-    .current-item.border-purdue::before {
-      background: linear-gradient(to right, rgba(207, 185, 145, 0.15), transparent);
-    }
-
-    .current-item.border-perplexity::before {
-      background: linear-gradient(to right, rgba(32, 178, 170, 0.15), transparent);
-    }
-
-    .current-item.border-aws::before {
-      background: linear-gradient(to right, rgba(255, 153, 0, 0.15), transparent);
-    }
-
-    .current-item.border-deere::before {
-      background: linear-gradient(to right, rgba(54, 124, 43, 0.15), transparent);
-    }
-
-    .current-item.border-roblox::before {
-      background: linear-gradient(to right, rgba(0, 162, 255, 0.15), transparent);
-    }
-
-    .current-item > * {
+    .entry {
+      display: flex;
       position: relative;
-      z-index: 2;
+      padding-bottom: 34px;
     }
 
-    .current-item .hover-gif {
-      position: absolute;
-      left: -130px;
-      top: 50%;
-      transform: translateY(-50%) translateX(0);
-      width: 120px;
-      height: 120px;
-      opacity: 0;
-      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-      pointer-events: none;
-      filter: invert(1);
-      z-index: 10;
-    }
-
-    .current-item:hover .hover-gif {
-      transform: translateY(-50%) translateX(-20px);
-      opacity: 1;
-    }
-
-    .current-item .hover-gif.purdue-logo {
-      filter: none;
-      width: auto;
-      height: 80px;
-      left: -150px;
-    }
-
-    .current-item:hover .hover-gif.purdue-logo {
-      transform: translateY(-50%) translateX(-20px);
-    }
-
-    .current-item .hover-gif#perplexity-gif {
-      filter: none;
-    }
-
-    .current-item .hover-gif#aws-gif {
-      filter: none;
-      width: auto;
-      height: 100px;
-      left: -180px;
-    }
-
-    .project-item .hover-gif#abl-gif {
-      filter: none;
-      width: auto;
-      height: 100px;
-      left: -200px;
-    }
-
-    .project-item .hover-gif.purdue-logo {
-      filter: none;
-      width: auto;
-      height: 80px;
-      left: -150px;
-    }
-
-    .current-item h3 {
-      margin: 0 0 10px 0;
-      font-size: 1.1rem;
-      text-transform: none;
-    }
-
-    .current-item p {
-      margin: 5px 0;
-      color: var(--fg);
-      line-height: 1.6;
-    }
-
-    .current-item p i {
+    .timespan {
+      width: 150px;
+      flex-shrink: 0;
+      text-align: right;
+      padding-right: 22px;
+      padding-top: 6px;
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      white-space: nowrap;
     }
 
-    /* Custom border colors for experiences */
-    .current-item.border-rtx {
-      border-left-color: var(--fg);
-    }
-
-    .current-item.border-purdue {
-      border-left-color: #CFB991;
-    }
-
-    .current-item.border-perplexity {
-      border-left-color: #20B2AA;
-    }
-
-    .current-item.border-aws {
-      border-left-color: #FF9900;
-    }
-
-    .current-item.border-deere {
-      border-left-color: #367C2B;
-    }
-
-    .current-item.border-roblox {
-      border-left-color: #00A2FF;
-    }
-
-    .projects {
-      margin-top: 60px;
-    }
-
-    .projects h2 {
-      text-align: center;
-      text-transform: lowercase;
-    }
-
-    .project-item {
-      margin: 30px 0;
-      padding: 20px;
-      border-left: 4px solid var(--fg);
-      background: rgba(0, 102, 204, 0.03);
+    .ico {
+      width: 56px;
+      flex-shrink: 0;
       position: relative;
-      overflow: visible;
-      transition: background 0.5s ease;
+      display: flex;
+      justify-content: center;
     }
-
-    .project-item::before {
+    /* vertical line through the icons */
+    .ico::before {
       content: '';
       position: absolute;
-      left: 0;
       top: 0;
-      bottom: 0;
-      width: 0;
-      transition: width 0.5s ease;
-      pointer-events: none;
-      z-index: 1;
+      bottom: -34px;
+      left: 50%;
+      border-left: 1px solid var(--line);
     }
+    .entry:last-child .ico::before { bottom: 0; }
 
-    .project-item:hover::before {
-      width: 100%;
-    }
-
-    .project-item.border-rtx::before {
-      background: linear-gradient(to right, rgba(243, 243, 243, 0.15), transparent);
-    }
-
-    .project-item.border-abl::before {
-      background: linear-gradient(to right, rgba(220, 20, 60, 0.15), transparent);
-    }
-
-    .project-item.border-purdue::before {
-      background: linear-gradient(to right, rgba(207, 185, 145, 0.15), transparent);
-    }
-
-    .project-item.border-trackswipe::before {
-      background: linear-gradient(to right, rgba(29, 185, 84, 0.15), transparent);
-    }
-
-    .project-item.border-drone::before {
-      background: linear-gradient(to right, rgba(0, 102, 204, 0.15), transparent);
-    }
-
-    .project-item.border-goggin::before {
-      background: linear-gradient(to right, rgba(74, 74, 74, 0.15), transparent);
-    }
-
-    .project-item > * {
+    .ico img, .ico .emoji {
       position: relative;
-      z-index: 2;
-    }
-
-    .project-item .hover-gif {
-      position: absolute;
-      left: -130px;
-      top: 50%;
-      transform: translateY(-50%) translateX(0);
-      width: 120px;
-      height: 120px;
-      opacity: 0;
-      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-      pointer-events: none;
-      filter: invert(1);
-      z-index: 10;
-    }
-
-    .project-item:hover .hover-gif {
-      transform: translateY(-50%) translateX(-20px);
-      opacity: 1;
-    }
-
-    .project-item h3 {
-      margin: 0 0 10px 0;
-      font-size: 1.1rem;
-      text-transform: lowercase;
-    }
-
-    .project-item p {
-      margin: 5px 0;
-      color: var(--fg);
-      line-height: 1.6;
-    }
-
-    .project-item p i {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    /* Custom border colors for projects */
-    .project-item.border-rtx {
-      border-left-color: var(--fg);
-    }
-
-    .project-item.border-abl {
-      border-left-color: #DC143C;
-    }
-
-    .project-item.border-purdue {
-      border-left-color: #CFB991;
-    }
-
-    .project-item.border-trackswipe {
-      border-left-color: #1DB954;
-    }
-
-    .project-item.border-drone {
-      border-left-color: #0066cc;
-    }
-
-    .project-item.border-goggin {
-      border-left-color: #4A4A4A;
-    }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .misc {
-      margin-top: 60px;
-      text-align: center;
-    }
-
-    .misc-item {
-      margin: 0;
-      font-size: 1.0rem;
-      text-transform: lowercase;
-      text-align: left;
-    }
-
-    .icon-link {
-      display: inline-block;
-      margin: 0 10px;
-      vertical-align: middle;
-      transition: transform 0.15s;
-    }
-    .icon-link:hover {
-      transform: scale(1.12);
-    }
-    .icon-link img {
       width: 40px;
       height: 40px;
       object-fit: contain;
-      display: block;
+      background: var(--bg);
+      padding: 2px 0;
+    }
+    .ico .emoji {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
     }
 
-    .contact-section {
-      margin-top: 60px;
+    .desc {
+      flex: 1;
+      padding-left: 22px;
+      padding-top: 4px;
+    }
+    .desc .role { font-weight: 600; }
+    .desc ul { margin: 6px 0 0; padding-left: 18px; }
+    .desc li { margin: 2px 0; }
+
+    /* ---------- sections ---------- */
+    .ctitle {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 44px 0 16px;
     }
 
-    .contact-section h2 {
-      text-align: center;
-      text-transform: lowercase;
-      margin-bottom: 30px;
+    .band {
+      background: var(--band);
+      padding: 1px 0 34px;
+      margin-top: 20px;
     }
 
-    .contact-container {
-      max-width: 500px;
-      margin: 0 auto;
+    .project {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 22px;
     }
+    .pico {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+    .pdesc .pdate { color: var(--muted); font-size: 0.9rem; }
 
+    .misc ul { padding-left: 20px; margin: 0; }
+    .misc li { margin: 6px 0; }
+
+    /* ---------- contact ---------- */
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 12px;
+      max-width: 520px;
     }
-
-    .form-input {
+    .form-input, .form-textarea {
       padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-family: 'Roboto Mono', monospace;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 0.95rem;
       background: var(--bg);
       color: var(--fg);
-      font-size: 0.95rem;
     }
-
-    .form-textarea {
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-family: 'Roboto Mono', monospace;
-      background: var(--bg);
-      color: var(--fg);
-      font-size: 0.95rem;
-      resize: vertical;
-      min-height: 120px;
-    }
-
+    .form-textarea { resize: vertical; min-height: 120px; }
     .submit-btn {
-      padding: 12px 24px;
+      align-self: flex-start;
+      padding: 10px 22px;
       background: var(--accent);
-      color: white;
+      color: #fff;
       border: none;
       border-radius: 6px;
-      font-family: 'Roboto Mono', monospace;
+      font: inherit;
       cursor: pointer;
-      transition: background 0.2s;
-      font-size: 1rem;
     }
+    .submit-btn:hover { filter: brightness(1.1); }
+    .submit-btn:disabled { opacity: 0.6; cursor: default; }
+    .success-message { color: #16a34a; margin-top: 12px; }
 
-    .submit-btn:hover {
-      background: #0052a3;
-    }
-
-    .success-message {
+    footer {
+      padding: 60px 0 40px;
+      color: var(--muted);
+      font-size: 0.85rem;
       text-align: center;
-      color: #28a745;
-      margin-top: 15px;
-      font-size: 0.95rem;
     }
+
+    /* ---------- mobile ---------- */
+    @media (max-width: 640px) {
+      #dhead {
+        flex-direction: column;
+        text-align: center;
+        gap: 18px;
+        padding-top: 32px;
+      }
+      .ppic { width: 130px; height: 130px; }
+      #dico, .meta-row { justify-content: center; }
+      .timespan { display: none; }
+      .entry .mobile-date {
+        display: block;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .ico { width: 44px; }
+      .ico img, .ico .emoji { width: 32px; height: 32px; font-size: 1.3rem; }
+      .desc { padding-left: 14px; }
+    }
+    .mobile-date { display: none; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="profile">
-      <img src="images/me2.JPG" alt="Patrick Shen" width="200" height="200" decoding="async" />
-      <h1>patrick shen</h1>
-      <p>hi</p>
-      <p id="typewriter" class="typewriter"></p>
-      <p>pzshen44@gmail.com</p>
-      <div class="social-icons">
-        <a href="mailto:pzshen44@gmail.com" class="icon-link" title="Email" style="font-size:2rem;line-height:1;">📧</a>
-        <a href="https://www.linkedin.com/in/patrickzshen/" class="icon-link" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-          <img src="images/linkedin_logo.png" alt="LinkedIn" width="40" height="40" loading="lazy" />
+
+  <!-- ===== header ===== -->
+  <div id="dhead" class="container">
+    <img src="images/me2.JPG" alt="Patrick Shen" class="ppic" width="160" height="160" decoding="async" />
+    <div id="ddesc">
+      <h1>Patrick Shen</h1>
+      <p class="tagline"><span id="typewriter" class="typewriter"></span></p>
+      <div id="dico">
+        <a href="mailto:pzshen44@gmail.com" title="Email" class="email-ico">📧</a>
+        <a href="https://www.linkedin.com/in/patrickzshen/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+          <img src="images/linkedin_logo.png" alt="LinkedIn" width="30" height="30" />
         </a>
-        <a href="https://github.com/pshen44" class="icon-link" target="_blank" rel="noopener noreferrer" title="GitHub">
-          <img src="images/github_logo.png" alt="GitHub" width="40" height="40" loading="lazy" />
+        <a href="https://github.com/pshen44" target="_blank" rel="noopener noreferrer" title="GitHub">
+          <img src="images/github_logo.png" alt="GitHub" class="github" width="30" height="30" />
         </a>
       </div>
-    </div>
-
-    <div class="timeline">
-      <div class="timeline-entry">
-        <div class="timeline-year">2024 - 2027</div>
-        <p><img src="images/Purdue_Boilermakers_logo.svg.png" alt="" width="40" height="40" loading="lazy" /><b>Purdue University</b> - B.S. in <b>Computer Engineering</b> with a focus on machine learning, AI, and software. 4x Dean's List & Semester Honors.</p>
+      <div class="meta-row">
+        <span>pzshen44@gmail.com</span>
+        <span id="pcStatus" class="pc-status" title="is patrick's pc on?">
+          <span class="pc-dot"></span><span id="pcText">pc: checking…</span>
+        </span>
       </div>
-      <div class="timeline-entry">
-        <div class="timeline-year">2020 - 2024</div>
-        <p><img src="images/11101.png" alt="" width="40" height="40" loading="lazy" /><b>Barrington High School</b> - student</p>
-      </div>
-    </div>
-
-    <div class="currently">
-      <h2 id="currently-heading">what i'm up to right now</h2>
-      <div class="current-item border-deere" id="deere-item">
-        <h3>🚜 swe intern @ John Deere</h3>
-        <p><i>May 2026 – Present</i></p>
-        <p>
-          Building full-stack tools (React, TypeScript) plus search, indexing, and authorization for John Deere's Unified Data Platform — 90K+ data assets, 2,250+ users.
-        </p>
-      </div>
-      <div class="current-item border-roblox" id="ppl-item">
-        <h3>🎮 founder @ PPL Studios</h3>
-        <p><i>April 2026 – Present</i></p>
-        <p>
-          Running 4 live multiplayer Roblox games with 10K+ combined visits, 320 peak concurrent players, and $2K+ revenue. Built with Luau and AI dev workflows (Claude Code, MCP, n8n).
-        </p>
-      </div>
-      <div class="current-item border-perplexity" id="perplexity-item">
-        <img src="images/perplexity.png" alt="Perplexity" class="hover-gif" id="perplexity-gif">
-        <h3>🧠 perplexity ai campus partner</h3>
-        <p><i>August 2025 – Present</i></p>
-        <p>
-          Promoting Perplexity AI and Comet while fostering innovation on campus.
-        </p>
-      </div>
-      <div class="current-item border-aws" id="aws-item">
-        <img src="images/aws.png" alt="AWS" class="hover-gif" id="aws-gif">
-        <h3>☁️ cloud native association x aws club board member</h3>
-        <p><i>September 2025 – Present</i></p>
-        <p>
-          Leading cloud computing initiatives and workshops.
-        </p>
-      </div>
-    </div>
-
-    <div class="projects">
-      <h2>some things i've done</h2>
-      <div class="project-item border-rtx" id="rtx-item">
-        <img src="images/raytheon.png" alt="RTX" class="hover-gif" id="rtx-gif">
-        <h3>📻 ml researcher @ RTX (Purdue Data Mine)</h3>
-        <p><i>August 2025 – May 2026</i></p>
-        <p>
-          Built machine learning models (Attention U-Net, PyTorch) predicting radio frequency signal coverage 90x faster than physics-based models.
-        </p>
-      </div>
-      <div class="project-item border-abl" id="abl-item">
-        <img src="images/abl.png" alt="American Bear Logistics" class="hover-gif" id="abl-gif">
-        <h3>🚚 SWE Intern @ American Bear Logistics</h3>
-        <p><i>May 2025 – August 2025</i></p>
-        <p>
-          Developed Python pipelines to automate data extraction and processing.
-        </p>
-      </div>
-      <div class="project-item border-purdue" id="purdue-item">
-        <img src="images/Purdue_Boilermakers_logo.svg.png" alt="Purdue" class="hover-gif purdue-logo" id="purdue-gif">
-        <h3>🚔 <a href="https://github.com/pshen44/carlaHIPdetection" target="_blank" rel="noopener noreferrer"><u>undergraduate researcher @ Purdue Digital Twin Lab</u></a></h3>
-        <p><i>December 2024 – May 2025</i></p>
-        <p>
-          Researched how LLMs can help detect road anomalies in autonomous vehicles, plus Vehicle-To-Vehicle (V2V) communication.
-        </p>
-      </div>
-      <div class="project-item border-trackswipe">
-        <h3>🎵 <a href="https://trackswipe.vercel.app/"><u>TrackSwipe</u></a></h3>
-        <p><i>April 2025 – August 2025</i></p>
-        <p>
-          A React web app to clean up messy Spotify playlists by swiping left or right. 200+ users and 900+ logins since launch.
-        </p>
-      </div>
-      <div class="project-item border-drone">
-        <h3>🤖 <a href="https://www.youtube.com/watch?v=-_8MtJ6WujI" target="_blank" rel="noopener noreferrer"><u>autonomous rc drone</u></a></h3>
-        <p><i>May 2023 – July 2023</i></p>
-        <p>Repurposed a Parrot Jumping Sumo with Arduino, an RGB cam, and some TensorFlow. It's currently retired (aka sitting in my closet).
-        </p>
-      </div>
-      <div class="project-item border-goggin">
-        <h3>💪 <a href="#"><u>goggin-gpt</u></a></h3>
-        <p><i>May 2025 – July 2025</i></p>
-        <p>
-          Created a generative pre-trained transformer (GPT) model. The model is trained on a custom dataset of motivational quotes and phrases.
-          It will motivate anyone.
-        </p>
-      </div>
-    </div>
-
-
-    <div class="misc">
-        <h2>misc</h2>
-        <div class="misc-item">
-        <ul>
-            <li>i love lifting weights and sand volleyball</li>
-            <li>formula one!</li>
-            <li>dream car is aston martin vantage 2022 f1 edition coupe configuration, simply the best <a href="https://static0.carbuzzimages.com/wordpress/wp-content/uploads/gallery-images/original/689000/500/689530.jpg" target="_blank" rel="noopener noreferrer"><u>facelift</u></a></li>
-            <li>this is a simple html website coded from scratch that is responsive, minimal, and very very <a href="https://www.youtube.com/watch?v=_eM3E1-OEQk&ab_channel=CBrofilms" target="_blank" rel="noopener noreferrer"><u>fast</u></a>. no flashy animations, libraries, apis, etc. </li>
-            <li>website inspired heavily by <a href="https://karpathy.ai/" target="_blank" rel="noopener noreferrer"><u></u>andrej karpathy</u></a></li>
-          </li>
-        </ul>
-    </div>
-
-    <div class="contact-section">
-        <h2>contact me</h2>
-        <div class="contact-container">
-            <form class="contact-form" onsubmit="sendMessage(event)">
-                <label for="userName" class="sr-only">Name</label>
-                <input type="text" id="userName" placeholder="your name" class="form-input" required>
-                
-                <label for="userEmail" class="sr-only">Email</label>
-                <input type="email" id="userEmail" placeholder="your email" class="form-input" required>
-                
-                <label for="userMessage" class="sr-only">Message</label>
-                <textarea id="userMessage" placeholder="your message" class="form-textarea" required></textarea>
-                
-                <button type="submit" class="submit-btn">send message</button>
-            </form>
-            <div id="statusMsg" class="sr-only" aria-live="polite"></div>
-            <div id="successMsg" style="display: none;" class="success-message">
-                ✓ message sent successfully! i'll get back to you soon.
-            </div>
-        </div>
     </div>
   </div>
 
-  <!-- Pit Stop -->
-  <div class="pit-stop-label">pit stop</div>
-  <div class="pit-stop car-active" id="pitStop">🛑</div>
-<script type="text/javascript" src="https://counter.websiteout.com/js/36/5/50/0"></script>
+  <hr>
+
+  <!-- ===== timeline ===== -->
+  <div id="history" class="container">
+
+    <div class="entry">
+      <div class="timespan">2026 -</div>
+      <div class="ico"><span class="emoji">🎮</span></div>
+      <div class="desc">
+        <span class="mobile-date">2026 -</span>
+        <span class="role">Founder @ Papple Studios.</span> I build and run multiplayer Roblox games: 4 live titles with 2M+ combined visits, 3K+ peak concurrent players, and $5K+ in profit. Luau, DataStore persistence, transactional purchases, and a lot of AI-assisted dev workflows (Claude Code, MCP, n8n).
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="timespan">2025 -</div>
+      <div class="ico"><img src="images/aws.png" alt="" loading="lazy" /></div>
+      <div class="desc">
+        <span class="mobile-date">2025 -</span>
+        <span class="role">Lead Engineer @ <a href="https://linktr.ee/CNAPxAWSPurdue" target="_blank" rel="noopener noreferrer">Cloud Native Association x AWS</a></span> at Purdue, running cloud computing initiatives and workshops.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="timespan">2026</div>
+      <div class="ico"><span class="emoji">🚜</span></div>
+      <div class="desc">
+        <span class="mobile-date">2026</span>
+        <span class="role">Software Engineer Intern @ John Deere</span> on the Unified Data Platform (90K+ data assets, 2,250+ users).
+        <ul>
+          <li>Built a full-stack redundancy-scoring app (React, TypeScript) over 210K+ reports/datasets, flagging 21K+ for consolidation and cutting ~$100K/yr in compute and storage.</li>
+          <li>Worked on core search, indexing, and authorization, including AD group-based approver auth in OpenSearch.</li>
+          <li>Closed 30 security issues (DDoS, supply-chain, credential exposure) across 6 production repos.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="timespan">2025 - 2026</div>
+      <div class="ico"><img src="images/raytheon.png" alt="" class="invert-dark" loading="lazy" /></div>
+      <div class="desc">
+        <span class="mobile-date">2025 - 2026</span>
+        <span class="role">ML Researcher @ RTX / Collins Aerospace</span> through the Purdue Data Mine. Built an Attention U-Net (PyTorch) that predicts RF signal coverage maps from terrain, tower, and frequency channels 90x faster than physics-based models (~0.63s per map), and cut prediction error by 60% (MAE 10.8 → 4.3 dB) by refining the attention gating.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="timespan">2025</div>
+      <div class="ico"><img src="images/abl.png" alt="" class="light-chip" loading="lazy" /></div>
+      <div class="desc">
+        <span class="mobile-date">2025</span>
+        <span class="role">Software Engineer Intern @ American Bear Logistics.</span> Wrote Python automation pipelines on the Microsoft Graph API that process delivery data from 4,000+ email threads, cutting manual work by 90% (used daily by 50+ employees), and trimmed API/cloud costs by 35% with batching and caching.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="timespan">2024 - 2025</div>
+      <div class="ico"><img src="images/Purdue_Boilermakers_logo.svg.png" alt="" loading="lazy" /></div>
+      <div class="desc">
+        <span class="mobile-date">2024 - 2025</span>
+        <span class="role">Undergraduate Researcher @ <a href="https://github.com/pshen44/carlaHIPdetection" target="_blank" rel="noopener noreferrer">Purdue Digital Twin Lab</a>.</span> Studied how LLMs can detect road anomalies for autonomous vehicles in the CARLA simulator, reaching 92% precision and a 20% accuracy gain over LiDAR-only methods.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="timespan">2024 - 2028</div>
+      <div class="ico"><img src="images/Purdue_Boilermakers_logo.svg.png" alt="" loading="lazy" /></div>
+      <div class="desc">
+        <span class="mobile-date">2024 - 2028</span>
+        <span class="role">Purdue University</span>, B.S. in Computer Engineering, focusing on machine learning, AI, and software. 4x Dean's List &amp; Semester Honors.
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="timespan">2020 - 2024</div>
+      <div class="ico"><img src="images/11101.png" alt="" loading="lazy" /></div>
+      <div class="desc">
+        <span class="mobile-date">2020 - 2024</span>
+        <span class="role">Barrington High School.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== projects ===== -->
+  <div class="band">
+    <div class="container">
+      <div class="ctitle">projects</div>
+
+      <div class="project">
+        <div class="pico">🎵</div>
+        <div class="pdesc">
+          <a href="https://trackswipe.vercel.app/" target="_blank" rel="noopener noreferrer"><b>TrackSwipe</b></a> <span class="pdate">· 2025</span><br>
+          A React web app that cleans up messy Spotify playlists by swiping left or right. 200+ users and 900+ logins since launch; client-side caching cut API calls by 90% and response times from 2s to 100ms.
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="pico">🤖</div>
+        <div class="pdesc">
+          <a href="https://www.youtube.com/watch?v=-_8MtJ6WujI" target="_blank" rel="noopener noreferrer"><b>autonomous rc drone</b></a> <span class="pdate">· 2023</span><br>
+          Repurposed a Parrot Jumping Sumo with Arduino, an RGB cam, and some TensorFlow. It's currently retired (aka sitting in my closet).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== misc ===== -->
+  <div class="container misc">
+    <div class="ctitle">misc unsorted</div>
+    <ul>
+      <li>i love lifting weights</li>
+      <li>sand volleyball is my favorite sport. always down for a game</li>
+      <li>formula one!</li>
+      <li>dream car is aston martin vantage 2022 f1 edition coupe configuration, simply the best <a href="https://static0.carbuzzimages.com/wordpress/wp-content/uploads/gallery-images/original/689000/500/689530.jpg" target="_blank" rel="noopener noreferrer">facelift</a></li>
+      <li>this is a simple html website coded from scratch that is responsive, minimal, and very very <a href="https://www.youtube.com/watch?v=_eM3E1-OEQk&ab_channel=CBrofilms" target="_blank" rel="noopener noreferrer">fast</a>. no frameworks, no libraries, one file.</li>
+      <li>website inspired heavily by <a href="https://karpathy.ai/" target="_blank" rel="noopener noreferrer">andrej karpathy</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== contact ===== -->
+  <div class="container">
+    <div class="ctitle">contact me</div>
+    <form class="contact-form" onsubmit="sendMessage(event)">
+      <label for="userName" class="sr-only">Name</label>
+      <input type="text" id="userName" placeholder="your name" class="form-input" required>
+
+      <label for="userEmail" class="sr-only">Email</label>
+      <input type="email" id="userEmail" placeholder="your email" class="form-input" required>
+
+      <label for="userMessage" class="sr-only">Message</label>
+      <textarea id="userMessage" placeholder="your message" class="form-textarea" required></textarea>
+
+      <button type="submit" class="submit-btn" id="submitBtn">send message</button>
+    </form>
+    <div id="statusMsg" class="sr-only" aria-live="polite"></div>
+    <div id="successMsg" style="display: none;" class="success-message">
+      ✓ message sent! i'll get back to you soon.
+    </div>
+  </div>
+
+  <footer class="container">
+    <script type="text/javascript" src="https://counter.websiteout.com/js/36/5/50/0"></script>
+  </footer>
 
 <script>
+// ---------- contact form (Formspree) ----------
 function sendMessage(event) {
     event.preventDefault();
-    
-    const name = document.getElementById('userName').value;
-    const email = document.getElementById('userEmail').value;
-    const message = document.getElementById('userMessage').value;
-    
+
+    const name = document.getElementById('userName').value.trim();
+    const email = document.getElementById('userEmail').value.trim();
+    const message = document.getElementById('userMessage').value.trim();
+    const status = document.getElementById('statusMsg');
+    const btn = document.getElementById('submitBtn');
+
     if (!name || !email || !message) {
         alert('Please fill out all fields');
-        const status = document.getElementById('statusMsg');
-        if (status) status.textContent = 'Please fill out all fields.';
+        status.textContent = 'Please fill out all fields.';
         return;
     }
-    
-    if (!email.includes('@')) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         alert('Please enter a valid email address');
-        const status = document.getElementById('statusMsg');
-        if (status) status.textContent = 'Please enter a valid email address.';
+        status.textContent = 'Please enter a valid email address.';
         return;
     }
-    
-    // Send message to Formspree
+
+    btn.disabled = true;
+    btn.textContent = 'sending…';
+
     fetch('https://formspree.io/f/xvgrwzwb', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            // Without this Formspree answers with an HTML page instead of JSON
+            'Accept': 'application/json'
         },
         body: JSON.stringify({
             name: name,
             email: email,
             message: message,
+            _replyto: email,
             _subject: 'Contact Form - ' + name
         })
     })
     .then(response => {
         if (response.ok) {
-            // Show success message
             document.getElementById('successMsg').style.display = 'block';
-            // Clear form
             document.getElementById('userName').value = '';
             document.getElementById('userEmail').value = '';
             document.getElementById('userMessage').value = '';
-            console.log('Message sent successfully');
-            const status = document.getElementById('statusMsg');
-            if (status) status.textContent = 'Message sent successfully!';
-            // Hide success message after 5 seconds
+            status.textContent = 'Message sent successfully!';
             setTimeout(() => {
                 document.getElementById('successMsg').style.display = 'none';
             }, 5000);
         } else {
-            alert('There was an error. Please try again.');
-            const status = document.getElementById('statusMsg');
-            if (status) status.textContent = 'There was an error. Please try again.';
+            throw new Error('Formspree responded ' + response.status);
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('There was an error. Please try again.');
-        const status = document.getElementById('statusMsg');
-        if (status) status.textContent = 'There was an error. Please try again.';
+        alert('There was an error sending your message. You can also email pzshen44@gmail.com directly.');
+        status.textContent = 'There was an error. Please try again.';
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.textContent = 'send message';
     });
 }
 
-// Typewriter effect for Chinese text with pinyin
+// ---------- typewriter tagline: pinyin -> chinese -> english ----------
 function typeWriter() {
     const pairs = [
         { pinyin: 'wo', chinese: '我' },
@@ -889,22 +585,19 @@ function typeWriter() {
         { pinyin: 'ti', chinese: '题' },
         { pinyin: '', chinese: '。' }
     ];
-    
+
     const element = document.getElementById('typewriter');
     let pairIndex = 0;
     let chineseResult = '';
-    const typoChance = 0.35; // 35% chance of typo (increased from 15%)
+    const typoChance = 0.35;
     const wrongChars = 'abcdefghijklmnopqrstuvwxyz';
-    
+
     function typeWord() {
         if (pairIndex >= pairs.length) {
-            // Hide cursor and highlight text, then replace with English
             setTimeout(() => {
                 element.classList.add('hide-cursor');
-                // Highlight the Chinese text
                 setTimeout(() => {
                     element.classList.add('highlight');
-                    // Replace with English after brief pause
                     setTimeout(() => {
                         element.classList.remove('highlight');
                         replaceWithEnglish();
@@ -913,28 +606,21 @@ function typeWriter() {
             }, 2000);
             return;
         }
-        
+
         const pair = pairs[pairIndex];
-        const shouldTypo = Math.random() < typoChance;
         let charIndex = 0;
         let currentPinyin = '';
         let hasTypo = false;
-        let typoIndex = -1;
-        
-        if (shouldTypo) {
-            typoIndex = Math.floor(Math.random() * pair.pinyin.length);
-        }
-        
+        const typoIndex = Math.random() < typoChance
+            ? Math.floor(Math.random() * pair.pinyin.length) : -1;
+
         function typeChar() {
             if (charIndex < pair.pinyin.length) {
-                // Add typo if this is the typo position
                 if (charIndex === typoIndex && !hasTypo) {
-                    const wrongChar = wrongChars[Math.floor(Math.random() * wrongChars.length)];
-                    currentPinyin += wrongChar;
+                    currentPinyin += wrongChars[Math.floor(Math.random() * wrongChars.length)];
                     element.textContent = chineseResult + currentPinyin;
                     hasTypo = true;
                     setTimeout(() => {
-                        // Backspace the typo
                         currentPinyin = currentPinyin.slice(0, -1);
                         element.textContent = chineseResult + currentPinyin;
                         setTimeout(typeChar, 100);
@@ -943,141 +629,82 @@ function typeWriter() {
                     currentPinyin += pair.pinyin[charIndex];
                     element.textContent = chineseResult + currentPinyin;
                     charIndex++;
-                    setTimeout(typeChar, 120); // Slower typing
+                    setTimeout(typeChar, 120);
                 }
             } else {
-                // Convert pinyin to Chinese after brief pause
                 setTimeout(() => {
                     chineseResult += pair.chinese;
                     element.textContent = chineseResult;
                     pairIndex++;
-                    setTimeout(typeWord, 300); // Pause between words
+                    setTimeout(typeWord, 300);
                 }, 400);
             }
         }
-        
+
         typeChar();
     }
-    
+
     function replaceWithEnglish() {
         const english = 'i like to make cool things that solve problems.';
         let charIndex = 0;
         element.textContent = '';
-        
-        function typeEnglishChar() {
+        element.classList.remove('hide-cursor');
+        (function typeEnglishChar() {
             if (charIndex < english.length) {
-                element.textContent += english[charIndex];
-                charIndex++;
-                setTimeout(typeEnglishChar, 60); // Fast typing for English
+                element.textContent += english[charIndex++];
+                setTimeout(typeEnglishChar, 60);
             }
-        }
-        
-        typeEnglishChar();
+        })();
     }
-    
-    // Start typing after a short delay
+
     setTimeout(typeWord, 1000);
 }
-
-// Start typewriter effect when page loads
 window.addEventListener('load', typeWriter);
 
-// Handle RTX gif animation - play once on hover and persist on last frame
-const rtxItem = document.getElementById('rtx-item');
-const rtxGif = document.getElementById('rtx-gif');
-let hasPlayedOnce = false;
+// ---------- "is my pc on?" indicator ----------
+// Not wired to the real machine: it follows a typical day in Chicago time
+// (online roughly 10am–2am, with a small per-day jitter so it isn't robotic).
+// To make it real later, replace isOnline() with a fetch to a heartbeat endpoint.
+(function () {
+    const el = document.getElementById('pcStatus');
+    const text = document.getElementById('pcText');
 
-if (rtxItem && rtxGif) {
-    rtxItem.addEventListener('mouseenter', function() {
-        if (!hasPlayedOnce) {
-            // Force gif to restart by re-setting src
-            const gifSrc = rtxGif.src;
-            rtxGif.src = '';
-            rtxGif.src = gifSrc;
-            hasPlayedOnce = true;
-        }
-    });
-}
-
-// Type dots slowly after "what i'm up to right now"
-function typeDotsSlowly() {
-    const heading = document.getElementById('currently-heading');
-    if (heading) {
-        let dotCount = 0;
-        const maxDots = 3;
-        
-        function addDot() {
-            if (dotCount < maxDots) {
-                heading.textContent += '.';
-                dotCount++;
-                setTimeout(addDot, 800); // 800ms between each dot
-            }
-        }
-        
-        // Start typing dots after a short delay
-        setTimeout(addDot, 1500);
-    }
-}
-
-// Start dots animation when page loads
-window.addEventListener('load', typeDotsSlowly);
-
-// Race car cursor — the car IS the cursor: follows the mouse 1:1, rotates toward travel direction.
-// The CSS transition on transform smooths the rotation; position updates are instant so there's no lag.
-(function() {
-    const racecar = document.createElement('img');
-    racecar.className = 'racecar-cursor';
-    racecar.src = 'images/aston.png';
-    racecar.style.width = '50px';
-    racecar.style.height = 'auto';
-    document.body.appendChild(racecar);
-
-    const pitStop = document.getElementById('pitStop');
-    let carActive = true;
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let lastX = mouseX;
-    let lastY = mouseY;
-    let angle = 0;
-
-    document.body.classList.add('car-cursor-active');
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    // Pit stop click handler — parks the car and brings back the normal cursor
-    pitStop.addEventListener('click', () => {
-        carActive = !carActive;
-        racecar.classList.toggle('inactive', !carActive);
-        pitStop.classList.toggle('car-active', carActive);
-        document.body.classList.toggle('car-cursor-active', carActive);
-    });
-
-    function updateCarPosition() {
-        // Only re-aim after meaningful movement so the car doesn't jitter when the mouse is still
-        const dx = mouseX - lastX;
-        const dy = mouseY - lastY;
-        if (Math.hypot(dx, dy) > 2) {
-            const target = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
-            // Take the shortest rotation path so crossing ±180° never spins the long way around
-            let delta = (target - angle) % 360;
-            if (delta > 180) delta -= 360;
-            if (delta < -180) delta += 360;
-            angle += delta;
-            lastX = mouseX;
-            lastY = mouseY;
-        }
-
-        racecar.style.transform = `rotate(${angle}deg)`;
-        racecar.style.left = (mouseX - 25) + 'px';
-        racecar.style.top = (mouseY - 25) + 'px';
-
-        requestAnimationFrame(updateCarPosition);
+    function chicagoNow() {
+        const parts = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Chicago',
+            year: 'numeric', month: 'numeric', day: 'numeric',
+            hour: 'numeric', minute: 'numeric', hour12: false
+        }).formatToParts(new Date());
+        const get = t => Number(parts.find(p => p.type === t).value);
+        return { y: get('year'), m: get('month'), d: get('day'), mins: (get('hour') % 24) * 60 + get('minute') };
     }
 
-    updateCarPosition();
+    // small deterministic number per calendar day, so every visitor sees the same thing
+    function jitter(seed, range) {
+        const x = Math.sin(seed) * 10000;
+        return Math.floor((x - Math.floor(x)) * range);
+    }
+
+    function update() {
+        const now = chicagoNow();
+        const seed = now.y * 400 + now.m * 31 + now.d;
+        const on = 10 * 60 + jitter(seed, 90);          // ~10:00–11:30
+        const off = 26 * 60 + jitter(seed + 1, 75);     // ~2:00–3:15 next morning
+        const t = now.mins < 6 * 60 ? now.mins + 24 * 60 : now.mins;
+        const online = t >= on && t < off;
+
+        el.classList.toggle('online', online);
+        if (online) {
+            text.textContent = 'pc: online';
+        } else {
+            const since = t >= off ? t - off : t + 24 * 60 - off;
+            const h = Math.floor(since / 60);
+            text.textContent = 'pc: offline · last seen ' + (h >= 1 ? h + 'h ago' : Math.max(1, since) + 'm ago');
+        }
+    }
+
+    update();
+    setInterval(update, 60 * 1000);
 })();
 </script>
 </body>
