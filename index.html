@@ -1,596 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Patrick Shen</title>
-  <meta name="description" content="Patrick Shen — Computer Engineering @ Purdue. ML, AI, and software." />
-  <meta property="og:title" content="Patrick Shen" />
-  <meta property="og:description" content="Computer Engineering @ Purdue. ML, AI, and software." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="images/me2.JPG" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#ffffff" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👋</text></svg>" />
+  <meta name="description" content="Patrick Shen. Computer Engineering @ Purdue.">
+  <meta property="og:title" content="Patrick Shen">
+  <meta property="og:image" content="images/me2.JPG">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👋</text></svg>">
   <style>
-    :root {
-      --bg: #ffffff;
-      --fg: #111111;
-      --muted: #666666;
-      --line: #dddddd;
-      --band: #eeeeee;
-      --accent: #1a5fb4;
-      --online: #22c55e;
-      --offline: #9ca3af;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #161616;
-        --fg: #ececec;
-        --muted: #9a9a9a;
-        --line: #333333;
-        --band: #202020;
-        --accent: #6aa8ff;
-        --offline: #6b7280;
-      }
-      /* bg #e9e9e9 inverts to the dark page color, so the line stays hidden behind the logo */
-      .ico img.invert-dark { filter: invert(1); background: #e9e9e9; }
-      .ico img.light-chip { background: #f3f3f3; border-radius: 6px; padding: 4px; }
-    }
-    @media (prefers-color-scheme: light) {
-      #dico img.github { filter: invert(1); }
-    }
-
-    * { box-sizing: border-box; }
-
+    /* layout + styles adapted from karpathy.ai/style.css */
     body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.5;
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        font-family: sans-serif;
+        font-size: 16px;
+        line-height: 1.4;
+        color: #333;
     }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
+    /* Layout */
     .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 16px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    @media (min-width: 992px) {
+        .container {
+            width: 970px;
+        }
+    }
+    .row {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
     }
 
-    hr {
-      border: 0;
-      border-top: 1px solid var(--line);
-      margin: 0;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px; height: 1px;
-      padding: 0; margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    /* ---------- header ---------- */
+    /* Props */
     #dhead {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      padding-top: 48px;
-      padding-bottom: 40px;
+        margin-top: 20px;
     }
-
-    .ppic {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      flex-shrink: 0;
+    #dpic {
+        grid-column: span 6;
+        text-align: right;
     }
-
-    #ddesc h1 {
-      margin: 0;
-      font-size: 2.2rem;
-      font-weight: 700;
+    #ddesc {
+        padding-top: 40px;
+        padding-left: 20px;
+        grid-column: span 6;
     }
-
-    .tagline {
-      margin: 6px 0 0;
-      font-size: 1.1rem;
-      font-weight: 400;
-      color: var(--muted);
-      min-height: 1.5em;
+    @media (max-width: 991px) {
+        #dpic {
+            grid-column: span 12;
+            text-align: center;
+        }
+        #ddesc {
+            grid-column: span 12;
+            padding-top: 20px;
+            text-align: center;
+        }
     }
-
-    .typewriter::after {
-      content: '|';
-      animation: blink 0.7s step-end infinite;
+    h1 {
+        font-size: 34px;
+        font-weight: normal;
+        padding: 0;
+        margin: 0;
     }
-    .typewriter.hide-cursor::after { content: ''; }
-    .typewriter.highlight {
-      background: var(--accent);
-      color: var(--bg);
-      padding: 0 2px;
+    h2 {
+        font-weight: normal;
+        font-style: italic;
+        color: #999;
+        font-size: 18px;
+        padding: 0;
+        margin: 5px 0 10px 0;
+        min-height: 25px;
     }
-    @keyframes blink { 50% { opacity: 0; } }
-
-    #dico {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-top: 14px;
+    @media (min-width: 992px) {
+        h2 {
+            max-width: 300px;
+        }
     }
-    #dico a { display: inline-flex; transition: transform 0.15s; }
-    #dico a:hover { transform: scale(1.1); text-decoration: none; }
-    #dico img { width: 30px; height: 30px; object-fit: contain; }
-    #dico .email-ico { font-size: 1.7rem; line-height: 1; }
-
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px 18px;
-      margin-top: 12px;
-      font-size: 0.9rem;
-      color: var(--muted);
+    #dpic img {
+        width: 240px;
+        height: 240px;
+        border-radius: 120px;
+        object-fit: cover;
     }
-
-    /* pc status pill */
-    .pc-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.8rem;
-      padding: 3px 10px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
+    .iico {
+        width: 40px;
+        height: 40px;
     }
-    .pc-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--offline);
-      position: relative;
+    #dico a { text-decoration: none; }
+    #demail {
+        margin-top: 10px;
+        color: #555;
     }
-    .pc-status.online .pc-dot { background: var(--online); }
-    .pc-status.online .pc-dot::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      background: var(--online);
-      animation: ping 1.8s ease-out infinite;
+    hr {
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+        padding: 0;
+        margin: 20px 0px 20px 0px;
+        border: 0;
     }
-    @keyframes ping {
-      0% { transform: scale(1); opacity: 0.7; }
-      100% { transform: scale(2.6); opacity: 0; }
-    }
-
-    /* ---------- timeline ---------- */
-    #history { padding-top: 36px; padding-bottom: 12px; }
-
-    .entry {
-      display: flex;
-      position: relative;
-      padding-bottom: 34px;
-    }
-
-    .timespan {
-      width: 150px;
-      flex-shrink: 0;
-      text-align: right;
-      padding-right: 22px;
-      padding-top: 6px;
-      color: var(--muted);
-      font-size: 0.95rem;
-      white-space: nowrap;
-    }
-
     .ico {
-      width: 56px;
-      flex-shrink: 0;
-      position: relative;
-      display: flex;
-      justify-content: center;
+        grid-column: span 1;
+        vertical-align: top;
+        border-left: 2px solid #cfcfcf;
+        position: relative;
     }
-    /* vertical line through the icons */
-    .ico::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: -34px;
-      left: 50%;
-      border-left: 1px solid var(--line);
+    .ico img {
+        border-radius: 5px;
+        width: 100%;
+        max-width: 80px;
+        margin-left: 10px;
     }
-    .entry:last-child .ico::before { bottom: 0; }
-
-    .ico img, .ico .emoji {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
-      background: var(--bg);
-      padding: 2px 0;
+    .ico .etile {
+        margin-left: 10px;
+        font-size: 34px;
+        line-height: 1;
     }
-    .ico .emoji {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-    }
-
     .desc {
-      flex: 1;
-      padding-left: 22px;
-      padding-top: 4px;
+        grid-column: span 10;
+        vertical-align: top;
+        font-size: 17px;
+        padding-left: 20px;
+        padding-bottom: 20px;
     }
-    .desc .role { font-weight: 600; }
-    .desc ul { margin: 6px 0 0; padding-left: 18px; }
-    .desc li { margin: 2px 0; }
-
-    /* ---------- sections ---------- */
+    .entry-dot {
+        position: absolute;
+        top: 0px;
+        left: -8px;
+        width: 10px;
+        height: 10px;
+        border-radius: 7px;
+        background-color: #cfcfcf;
+        border: 2px solid white;
+    }
+    .timespan {
+        grid-column: span 1;
+        font-size: 14px;
+        text-align: right;
+        padding-right: 5px;
+        color: #bbb;
+    }
     .ctitle {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 44px 0 16px;
+        font-size: 36px;
+        margin-bottom: 20px;
+        margin-top: 40px;
     }
-
-    .band {
-      background: var(--band);
-      padding: 1px 0 34px;
-      margin-top: 20px;
-    }
-
     .project {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
-      margin-bottom: 22px;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
     }
     .pico {
-      width: 64px;
-      height: 64px;
-      flex-shrink: 0;
-      border-radius: 10px;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
+        float: left;
+        margin-right: 10px;
     }
-    .pdesc .pdate { color: var(--muted); font-size: 0.9rem; }
-
-    .misc ul { padding-left: 20px; margin: 0; }
-    .misc li { margin: 6px 0; }
-
-    /* ---------- contact ---------- */
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-width: 520px;
+    .pend {
+        clear: both;
     }
-    .form-input, .form-textarea {
-      padding: 10px 12px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      font: inherit;
-      font-size: 0.95rem;
-      background: var(--bg);
-      color: var(--fg);
+    .pico img {
+        height: 80px;
+        border-radius: 5px;
+        border: 1px solid #999;
     }
-    .form-textarea { resize: vertical; min-height: 120px; }
-    .submit-btn {
-      align-self: flex-start;
-      padding: 10px 22px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font: inherit;
-      cursor: pointer;
-    }
-    .submit-btn:hover { filter: brightness(1.1); }
-    .submit-btn:disabled { opacity: 0.6; cursor: default; }
-    .success-message { color: #16a34a; margin-top: 12px; }
-
-    footer {
-      padding: 60px 0 40px;
-      color: var(--muted);
-      font-size: 0.85rem;
-      text-align: center;
+    .pico .ptile {
+        width: 80px;
+        height: 80px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #999;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
     }
 
-    /* ---------- mobile ---------- */
-    @media (max-width: 640px) {
-      #dhead {
-        flex-direction: column;
-        text-align: center;
-        gap: 18px;
-        padding-top: 32px;
-      }
-      .ppic { width: 130px; height: 130px; }
-      #dico, .meta-row { justify-content: center; }
-      .timespan { display: none; }
-      .entry .mobile-date {
+    /* pc status: small, quiet, in the header */
+    #pcstatus {
+        margin-top: 8px;
+        font-size: 14px;
+        color: #999;
+    }
+    #pcdot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 4px;
+        background-color: #bbb;
+        margin-right: 4px;
+    }
+    #pcstatus.online #pcdot { background-color: #2ecc40; }
+
+    /* typewriter cursor */
+    .typewriter::after { content: '|'; font-style: normal; animation: blink 0.7s step-end infinite; }
+    .typewriter.hide-cursor::after { content: ''; }
+    .typewriter.highlight { background: #b4d5fe; color: #333; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* contact form, kept plain */
+    .cform input, .cform textarea {
         display: block;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-      .ico { width: 44px; }
-      .ico img, .ico .emoji { width: 32px; height: 32px; font-size: 1.3rem; }
-      .desc { padding-left: 14px; }
+        width: 100%;
+        max-width: 500px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        padding: 6px 8px;
+        font-family: sans-serif;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
     }
-    .mobile-date { display: none; }
+    .cform textarea { height: 110px; resize: vertical; }
+    .cform button {
+        font-family: sans-serif;
+        font-size: 16px;
+        padding: 6px 14px;
+        cursor: pointer;
+    }
+    #successMsg { color: #090; margin-top: 10px; display: none; }
+    .sr-only {
+        position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+        overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
   </style>
 </head>
 <body>
 
-  <!-- ===== header ===== -->
   <div id="dhead" class="container">
-    <img src="images/me2.JPG" alt="Patrick Shen" class="ppic" width="160" height="160" decoding="async" />
-    <div id="ddesc">
-      <h1>Patrick Shen</h1>
-      <p class="tagline"><span id="typewriter" class="typewriter"></span></p>
-      <div id="dico">
-        <a href="mailto:pzshen44@gmail.com" title="Email" class="email-ico">📧</a>
-        <a href="https://www.linkedin.com/in/patrickzshen/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-          <img src="images/linkedin_logo.png" alt="LinkedIn" width="30" height="30" />
-        </a>
-        <a href="https://github.com/pshen44" target="_blank" rel="noopener noreferrer" title="GitHub">
-          <img src="images/github_logo.png" alt="GitHub" class="github" width="30" height="30" />
-        </a>
+    <div class="row">
+      <div id="dpic">
+        <img src="images/me2.JPG" class="ppic" alt="Patrick Shen">
       </div>
-      <div class="meta-row">
-        <span>pzshen44@gmail.com</span>
-        <span id="pcStatus" class="pc-status" title="is patrick's pc on?">
-          <span class="pc-dot"></span><span id="pcText">pc: checking…</span>
-        </span>
+      <div id="ddesc">
+        <h1>Patrick Shen</h1>
+        <h2><span id="typewriter" class="typewriter"></span></h2>
+        <div id="dico">
+          <a href="https://www.linkedin.com/in/patrickzshen/"><img src="images/linkedin_logo.png" class="iico" alt="LinkedIn"></a>
+          <a href="https://github.com/pshen44"><img src="images/github_logo.png" class="iico" alt="GitHub" style="filter: invert(1);"></a>
+          <a href="mailto:pzshen44@gmail.com"><svg class="iico" viewBox="0 0 40 40" aria-label="Email"><circle cx="20" cy="20" r="20" fill="#7a7a7a"/><rect x="10" y="13" width="20" height="14" rx="1.5" fill="none" stroke="white" stroke-width="2"/><path d="M10.5 14 L20 21.5 L29.5 14" fill="none" stroke="white" stroke-width="2"/></svg></a>
+        </div>
+        <div id="demail">pzshen44@gmail.com</div>
+        <div id="pcstatus"><span id="pcdot"></span><span id="pctext">checking if my pc is on...</span></div>
       </div>
     </div>
   </div>
 
   <hr>
 
-  <!-- ===== timeline ===== -->
   <div id="history" class="container">
 
-    <div class="entry">
+    <div class="entry row">
       <div class="timespan">2026 -</div>
-      <div class="ico"><span class="emoji">🎮</span></div>
+      <div class="ico">
+        <div class="entry-dot"></div>
+        <div class="etile">🎮</div>
+      </div>
       <div class="desc">
-        <span class="mobile-date">2026 -</span>
-        <span class="role">Founder @ Papple Studios.</span> I build and run multiplayer Roblox games: 4 live titles with 2M+ combined visits, 3K+ peak concurrent players, and $5K+ in profit. Luau, DataStore persistence, transactional purchases, and a lot of AI-assisted dev workflows (Claude Code, MCP, n8n).
+        I run Papple Studios, where I build multiplayer Roblox games. We have 4 live titles with 2M+ combined visits, 3K+ peak concurrent players, and over $5K in profit. Everything is written in Luau, with a lot of AI-assisted workflows (Claude Code, MCP, n8n) for both building and project management.
       </div>
     </div>
 
-    <div class="entry">
+    <div class="entry row">
       <div class="timespan">2025 -</div>
-      <div class="ico"><img src="images/aws.png" alt="" loading="lazy" /></div>
+      <div class="ico">
+        <div class="entry-dot"></div>
+        <img src="images/aws.png" alt="">
+      </div>
       <div class="desc">
-        <span class="mobile-date">2025 -</span>
-        <span class="role">Lead Engineer @ <a href="https://linktr.ee/CNAPxAWSPurdue" target="_blank" rel="noopener noreferrer">Cloud Native Association x AWS</a></span> at Purdue, running cloud computing initiatives and workshops.
+        I am the Lead Engineer of the <a href="https://linktr.ee/CNAPxAWSPurdue">Cloud Native Association x AWS</a> club at Purdue, where we run cloud computing initiatives and workshops.
       </div>
     </div>
 
-    <div class="entry">
+    <div class="entry row">
       <div class="timespan">2026</div>
-      <div class="ico"><span class="emoji">🚜</span></div>
+      <div class="ico">
+        <div class="entry-dot"></div>
+        <div class="etile">🚜</div>
+      </div>
       <div class="desc">
-        <span class="mobile-date">2026</span>
-        <span class="role">Software Engineer Intern @ John Deere</span> on the Unified Data Platform (90K+ data assets, 2,250+ users).
-        <ul>
-          <li>Built a full-stack redundancy-scoring app (React, TypeScript) over 210K+ reports/datasets, flagging 21K+ for consolidation and cutting ~$100K/yr in compute and storage.</li>
-          <li>Worked on core search, indexing, and authorization, including AD group-based approver auth in OpenSearch.</li>
-          <li>Closed 30 security issues (DDoS, supply-chain, credential exposure) across 6 production repos.</li>
-        </ul>
+        I was a Software Engineer Intern at John Deere on the Unified Data Platform (90K+ data assets, 2,250+ users). I built a full-stack redundancy-scoring app in React and TypeScript that analyzed 210K+ reports and datasets and flagged 21K+ of them for consolidation, cutting about $100K a year in compute and storage. I also worked on the platform's core search, indexing, and authorization (AD group-based approvals in OpenSearch), and closed 30 security issues across 6 production repos.
       </div>
     </div>
 
-    <div class="entry">
+    <div class="entry row">
       <div class="timespan">2025 - 2026</div>
-      <div class="ico"><img src="images/raytheon.png" alt="" class="invert-dark" loading="lazy" /></div>
+      <div class="ico">
+        <div class="entry-dot"></div>
+        <img src="images/raytheon.png" alt="">
+      </div>
       <div class="desc">
-        <span class="mobile-date">2025 - 2026</span>
-        <span class="role">ML Researcher @ RTX / Collins Aerospace</span> through the Purdue Data Mine. Built an Attention U-Net (PyTorch) that predicts RF signal coverage maps from terrain, tower, and frequency channels 90x faster than physics-based models (~0.63s per map), and cut prediction error by 60% (MAE 10.8 → 4.3 dB) by refining the attention gating.
+        I was a Machine Learning Researcher with RTX / Collins Aerospace through the Purdue Data Mine. I built an Attention U-Net in PyTorch that predicts radio signal coverage maps from terrain, tower, and frequency data 90x faster than physics-based models (~0.63s per map), and cut prediction error by 60% (MAE from 10.8 dB to 4.3 dB) by refining the attention gating.
       </div>
     </div>
 
-    <div class="entry">
+    <div class="entry row">
       <div class="timespan">2025</div>
-      <div class="ico"><img src="images/abl.png" alt="" class="light-chip" loading="lazy" /></div>
+      <div class="ico">
+        <div class="entry-dot"></div>
+        <img src="images/abl.png" alt="">
+      </div>
       <div class="desc">
-        <span class="mobile-date">2025</span>
-        <span class="role">Software Engineer Intern @ American Bear Logistics.</span> Wrote Python automation pipelines on the Microsoft Graph API that process delivery data from 4,000+ email threads, cutting manual work by 90% (used daily by 50+ employees), and trimmed API/cloud costs by 35% with batching and caching.
+        I was a Software Engineer Intern at American Bear Logistics, where I wrote Python automation pipelines on the Microsoft Graph API to process delivery data from 4,000+ email threads. It cut manual processing time by 90% and is used daily by 50+ employees.
       </div>
     </div>
 
-    <div class="entry">
+    <div class="entry row">
       <div class="timespan">2024 - 2025</div>
-      <div class="ico"><img src="images/Purdue_Boilermakers_logo.svg.png" alt="" loading="lazy" /></div>
+      <div class="ico">
+        <div class="entry-dot"></div>
+        <img src="images/Purdue_Boilermakers_logo.svg.png" alt="">
+      </div>
       <div class="desc">
-        <span class="mobile-date">2024 - 2025</span>
-        <span class="role">Undergraduate Researcher @ <a href="https://github.com/pshen44/carlaHIPdetection" target="_blank" rel="noopener noreferrer">Purdue Digital Twin Lab</a>.</span> Studied how LLMs can detect road anomalies for autonomous vehicles in the CARLA simulator, reaching 92% precision and a 20% accuracy gain over LiDAR-only methods.
+        I was an undergraduate researcher at the <a href="https://github.com/pshen44/carlaHIPdetection">Purdue Digital Twin Lab</a>, studying how LLMs can detect road anomalies for autonomous vehicles in the CARLA driving simulator. We reached 92% precision and a 20% accuracy gain over LiDAR-only methods.
       </div>
     </div>
 
-    <div class="entry">
+    <div class="entry row">
       <div class="timespan">2024 - 2028</div>
-      <div class="ico"><img src="images/Purdue_Boilermakers_logo.svg.png" alt="" loading="lazy" /></div>
+      <div class="ico">
+        <div class="entry-dot"></div>
+        <img src="images/Purdue_Boilermakers_logo.svg.png" alt="">
+      </div>
       <div class="desc">
-        <span class="mobile-date">2024 - 2028</span>
-        <span class="role">Purdue University</span>, B.S. in Computer Engineering, focusing on machine learning, AI, and software. 4x Dean's List &amp; Semester Honors.
+        BS in Computer Engineering at Purdue University, focused on machine learning, AI, and software. 4x Dean's List &amp; Semester Honors.
       </div>
     </div>
 
-    <div class="entry">
+    <div class="entry row">
       <div class="timespan">2020 - 2024</div>
-      <div class="ico"><img src="images/11101.png" alt="" loading="lazy" /></div>
+      <div class="ico">
+        <div class="entry-dot"></div>
+        <img src="images/11101.png" alt="" style="max-width: 40px;">
+      </div>
       <div class="desc">
-        <span class="mobile-date">2020 - 2024</span>
-        <span class="role">Barrington High School.</span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ===== projects ===== -->
-  <div class="band">
-    <div class="container">
-      <div class="ctitle">projects</div>
-
-      <div class="project">
-        <div class="pico">🎵</div>
-        <div class="pdesc">
-          <a href="https://trackswipe.vercel.app/" target="_blank" rel="noopener noreferrer"><b>TrackSwipe</b></a> <span class="pdate">· 2025</span><br>
-          A React web app that cleans up messy Spotify playlists by swiping left or right. 200+ users and 900+ logins since launch; client-side caching cut API calls by 90% and response times from 2s to 100ms.
-        </div>
-      </div>
-
-      <div class="project">
-        <div class="pico">🤖</div>
-        <div class="pdesc">
-          <a href="https://www.youtube.com/watch?v=-_8MtJ6WujI" target="_blank" rel="noopener noreferrer"><b>autonomous rc drone</b></a> <span class="pdate">· 2023</span><br>
-          Repurposed a Parrot Jumping Sumo with Arduino, an RGB cam, and some TensorFlow. It's currently retired (aka sitting in my closet).
-        </div>
+        Barrington High School.
       </div>
     </div>
   </div>
 
-  <!-- ===== misc ===== -->
-  <div class="container misc">
+  <div id="pet-projects" class="container">
+    <div class="ctitle">projects</div>
+
+    <div class="project">
+      <div class="pico"><div class="ptile">🎵</div></div>
+      <div class="pdesc"><a href="https://trackswipe.vercel.app/">TrackSwipe</a> is a React web app for cleaning up messy Spotify playlists by swiping left or right. It has 200+ users and 900+ logins since launch, and client-side caching cut API calls by 90% and response times from 2s to 100ms.</div>
+      <div class="pend"></div>
+    </div>
+
+    <div class="project">
+      <div class="pico"><a href="https://www.youtube.com/watch?v=-_8MtJ6WujI"><img src="https://img.youtube.com/vi/-_8MtJ6WujI/mqdefault.jpg" alt=""></a></div>
+      <div class="pdesc">An <a href="https://www.youtube.com/watch?v=-_8MtJ6WujI">autonomous rc drone</a>: I repurposed a Parrot Jumping Sumo with an Arduino, an RGB camera, and some TensorFlow. It's currently retired (aka sitting in my closet).</div>
+      <div class="pend"></div>
+    </div>
+  </div>
+
+  <div class="container">
     <div class="ctitle">misc unsorted</div>
-    <ul>
-      <li>i love lifting weights</li>
-      <li>sand volleyball is my favorite sport. always down for a game</li>
-      <li>formula one!</li>
-      <li>dream car is aston martin vantage 2022 f1 edition coupe configuration, simply the best <a href="https://static0.carbuzzimages.com/wordpress/wp-content/uploads/gallery-images/original/689000/500/689530.jpg" target="_blank" rel="noopener noreferrer">facelift</a></li>
-      <li>this is a simple html website coded from scratch that is responsive, minimal, and very very <a href="https://www.youtube.com/watch?v=_eM3E1-OEQk&ab_channel=CBrofilms" target="_blank" rel="noopener noreferrer">fast</a>. no frameworks, no libraries, one file.</li>
-      <li>website inspired heavily by <a href="https://karpathy.ai/" target="_blank" rel="noopener noreferrer">andrej karpathy</a></li>
+    <ul style="padding-left: 10px;">
+      <li>I love lifting weights.</li>
+      <li>Sand volleyball is my favorite sport. Always down for a game.</li>
+      <li>Formula One!</li>
+      <li>Dream car is the Aston Martin Vantage 2022 F1 Edition coupe configuration, simply the best <a href="https://static0.carbuzzimages.com/wordpress/wp-content/uploads/gallery-images/original/689000/500/689530.jpg">facelift</a>.</li>
+      <li>0 frameworks were used to make this simple responsive website. It's one HTML file and it's very very <a href="https://www.youtube.com/watch?v=_eM3E1-OEQk&amp;ab_channel=CBrofilms">fast</a>.</li>
+      <li>This website is shamelessly inspired by <a href="https://karpathy.ai/">Andrej Karpathy's</a>.</li>
     </ul>
   </div>
 
-  <!-- ===== contact ===== -->
   <div class="container">
-    <div class="ctitle">contact me</div>
-    <form class="contact-form" onsubmit="sendMessage(event)">
+    <div class="ctitle">contact</div>
+    <form class="cform" onsubmit="sendMessage(event)">
       <label for="userName" class="sr-only">Name</label>
-      <input type="text" id="userName" placeholder="your name" class="form-input" required>
-
+      <input type="text" id="userName" placeholder="your name" required>
       <label for="userEmail" class="sr-only">Email</label>
-      <input type="email" id="userEmail" placeholder="your email" class="form-input" required>
-
+      <input type="email" id="userEmail" placeholder="your email" required>
       <label for="userMessage" class="sr-only">Message</label>
-      <textarea id="userMessage" placeholder="your message" class="form-textarea" required></textarea>
-
-      <button type="submit" class="submit-btn" id="submitBtn">send message</button>
+      <textarea id="userMessage" placeholder="your message" required></textarea>
+      <button type="submit" id="submitBtn">send message</button>
     </form>
+    <div id="successMsg">message sent! i'll get back to you soon.</div>
     <div id="statusMsg" class="sr-only" aria-live="polite"></div>
-    <div id="successMsg" style="display: none;" class="success-message">
-      ✓ message sent! i'll get back to you soon.
-    </div>
   </div>
 
-  <footer class="container">
+  <br><br><br>
+  <div class="container" style="text-align: center;">
     <script type="text/javascript" src="https://counter.websiteout.com/js/36/5/50/0"></script>
-  </footer>
+  </div>
+  <br><br><br><br><br>
 
 <script>
-// ---------- contact form (Formspree) ----------
+// contact form -> Formspree (lands in pzshen44@gmail.com)
 function sendMessage(event) {
     event.preventDefault();
-
     const name = document.getElementById('userName').value.trim();
     const email = document.getElementById('userEmail').value.trim();
     const message = document.getElementById('userMessage').value.trim();
     const status = document.getElementById('statusMsg');
     const btn = document.getElementById('submitBtn');
 
-    if (!name || !email || !message) {
-        alert('Please fill out all fields');
-        status.textContent = 'Please fill out all fields.';
-        return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert('Please enter a valid email address');
-        status.textContent = 'Please enter a valid email address.';
-        return;
-    }
+    if (!name || !email || !message) { alert('Please fill out all fields'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Please enter a valid email address'); return; }
 
     btn.disabled = true;
-    btn.textContent = 'sending…';
-
+    btn.textContent = 'sending...';
     fetch('https://formspree.io/f/xvgrwzwb', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            // Without this Formspree answers with an HTML page instead of JSON
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            name: name,
-            email: email,
-            message: message,
-            _replyto: email,
-            _subject: 'Contact Form - ' + name
-        })
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, message: message, _replyto: email, _subject: 'Contact Form - ' + name })
     })
     .then(response => {
-        if (response.ok) {
-            document.getElementById('successMsg').style.display = 'block';
-            document.getElementById('userName').value = '';
-            document.getElementById('userEmail').value = '';
-            document.getElementById('userMessage').value = '';
-            status.textContent = 'Message sent successfully!';
-            setTimeout(() => {
-                document.getElementById('successMsg').style.display = 'none';
-            }, 5000);
-        } else {
-            throw new Error('Formspree responded ' + response.status);
-        }
+        if (!response.ok) throw new Error('Formspree responded ' + response.status);
+        document.getElementById('successMsg').style.display = 'block';
+        document.getElementById('userName').value = '';
+        document.getElementById('userEmail').value = '';
+        document.getElementById('userMessage').value = '';
+        status.textContent = 'Message sent successfully!';
+        setTimeout(() => { document.getElementById('successMsg').style.display = 'none'; }, 5000);
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error(error);
         alert('There was an error sending your message. You can also email pzshen44@gmail.com directly.');
-        status.textContent = 'There was an error. Please try again.';
     })
-    .finally(() => {
-        btn.disabled = false;
-        btn.textContent = 'send message';
-    });
+    .finally(() => { btn.disabled = false; btn.textContent = 'send message'; });
 }
 
-// ---------- typewriter tagline: pinyin -> chinese -> english ----------
+// typewriter tagline: pinyin -> chinese -> english
 function typeWriter() {
     const pairs = [
-        { pinyin: 'wo', chinese: '我' },
-        { pinyin: 'xi', chinese: '喜' },
-        { pinyin: 'huan', chinese: '欢' },
-        { pinyin: 'zuo', chinese: '作' },
-        { pinyin: 'ku', chinese: '酷' },
-        { pinyin: 'de', chinese: '的' },
-        { pinyin: 'dong', chinese: '东' },
-        { pinyin: 'xi', chinese: '西' },
-        { pinyin: 'lai', chinese: '来' },
-        { pinyin: 'jie', chinese: '解' },
-        { pinyin: 'jue', chinese: '决' },
-        { pinyin: 'wen', chinese: '问' },
-        { pinyin: 'ti', chinese: '题' },
-        { pinyin: '', chinese: '。' }
+        { pinyin: 'wo', chinese: '我' }, { pinyin: 'xi', chinese: '喜' }, { pinyin: 'huan', chinese: '欢' },
+        { pinyin: 'zuo', chinese: '作' }, { pinyin: 'ku', chinese: '酷' }, { pinyin: 'de', chinese: '的' },
+        { pinyin: 'dong', chinese: '东' }, { pinyin: 'xi', chinese: '西' }, { pinyin: 'lai', chinese: '来' },
+        { pinyin: 'jie', chinese: '解' }, { pinyin: 'jue', chinese: '决' }, { pinyin: 'wen', chinese: '问' },
+        { pinyin: 'ti', chinese: '题' }, { pinyin: '', chinese: '。' }
     ];
-
     const element = document.getElementById('typewriter');
+    const wrongChars = 'abcdefghijklmnopqrstuvwxyz';
     let pairIndex = 0;
     let chineseResult = '';
-    const typoChance = 0.35;
-    const wrongChars = 'abcdefghijklmnopqrstuvwxyz';
 
     function typeWord() {
         if (pairIndex >= pairs.length) {
@@ -598,21 +447,14 @@ function typeWriter() {
                 element.classList.add('hide-cursor');
                 setTimeout(() => {
                     element.classList.add('highlight');
-                    setTimeout(() => {
-                        element.classList.remove('highlight');
-                        replaceWithEnglish();
-                    }, 800);
+                    setTimeout(() => { element.classList.remove('highlight'); replaceWithEnglish(); }, 800);
                 }, 300);
             }, 2000);
             return;
         }
-
         const pair = pairs[pairIndex];
-        let charIndex = 0;
-        let currentPinyin = '';
-        let hasTypo = false;
-        const typoIndex = Math.random() < typoChance
-            ? Math.floor(Math.random() * pair.pinyin.length) : -1;
+        let charIndex = 0, currentPinyin = '', hasTypo = false;
+        const typoIndex = Math.random() < 0.35 ? Math.floor(Math.random() * pair.pinyin.length) : -1;
 
         function typeChar() {
             if (charIndex < pair.pinyin.length) {
@@ -626,9 +468,8 @@ function typeWriter() {
                         setTimeout(typeChar, 100);
                     }, 200);
                 } else {
-                    currentPinyin += pair.pinyin[charIndex];
+                    currentPinyin += pair.pinyin[charIndex++];
                     element.textContent = chineseResult + currentPinyin;
-                    charIndex++;
                     setTimeout(typeChar, 120);
                 }
             } else {
@@ -640,69 +481,56 @@ function typeWriter() {
                 }, 400);
             }
         }
-
         typeChar();
     }
 
     function replaceWithEnglish() {
-        const english = 'i like to make cool things that solve problems.';
-        let charIndex = 0;
+        const english = 'I like to make cool things that solve problems.';
+        let i = 0;
         element.textContent = '';
         element.classList.remove('hide-cursor');
-        (function typeEnglishChar() {
-            if (charIndex < english.length) {
-                element.textContent += english[charIndex++];
-                setTimeout(typeEnglishChar, 60);
-            }
+        (function next() {
+            if (i < english.length) { element.textContent += english[i++]; setTimeout(next, 60); }
         })();
     }
-
     setTimeout(typeWord, 1000);
 }
 window.addEventListener('load', typeWriter);
 
-// ---------- "is my pc on?" indicator ----------
-// Not wired to the real machine: it follows a typical day in Chicago time
-// (online roughly 10am–2am, with a small per-day jitter so it isn't robotic).
-// To make it real later, replace isOnline() with a fetch to a heartbeat endpoint.
+// "is my pc on?" -- not connected to the real machine. It follows a normal day in
+// Chicago time (on ~10am-2am, shifted a little each day), same for every visitor.
+// To make it real, replace the schedule check with a fetch to a heartbeat endpoint.
 (function () {
-    const el = document.getElementById('pcStatus');
-    const text = document.getElementById('pcText');
+    const box = document.getElementById('pcstatus');
+    const text = document.getElementById('pctext');
 
     function chicagoNow() {
         const parts = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'America/Chicago',
-            year: 'numeric', month: 'numeric', day: 'numeric',
+            timeZone: 'America/Chicago', year: 'numeric', month: 'numeric', day: 'numeric',
             hour: 'numeric', minute: 'numeric', hour12: false
         }).formatToParts(new Date());
         const get = t => Number(parts.find(p => p.type === t).value);
-        return { y: get('year'), m: get('month'), d: get('day'), mins: (get('hour') % 24) * 60 + get('minute') };
+        return { seed: get('year') * 400 + get('month') * 31 + get('day'), mins: (get('hour') % 24) * 60 + get('minute') };
     }
-
-    // small deterministic number per calendar day, so every visitor sees the same thing
     function jitter(seed, range) {
         const x = Math.sin(seed) * 10000;
         return Math.floor((x - Math.floor(x)) * range);
     }
-
     function update() {
         const now = chicagoNow();
-        const seed = now.y * 400 + now.m * 31 + now.d;
-        const on = 10 * 60 + jitter(seed, 90);          // ~10:00–11:30
-        const off = 26 * 60 + jitter(seed + 1, 75);     // ~2:00–3:15 next morning
+        const on = 10 * 60 + jitter(now.seed, 90);
+        const off = 26 * 60 + jitter(now.seed + 1, 75);
         const t = now.mins < 6 * 60 ? now.mins + 24 * 60 : now.mins;
         const online = t >= on && t < off;
-
-        el.classList.toggle('online', online);
+        box.classList.toggle('online', online);
         if (online) {
-            text.textContent = 'pc: online';
+            text.textContent = 'my pc is on right now';
         } else {
             const since = t >= off ? t - off : t + 24 * 60 - off;
             const h = Math.floor(since / 60);
-            text.textContent = 'pc: offline · last seen ' + (h >= 1 ? h + 'h ago' : Math.max(1, since) + 'm ago');
+            text.textContent = 'my pc is off (last on ' + (h >= 1 ? h + 'h' : Math.max(1, since) + 'm') + ' ago)';
         }
     }
-
     update();
     setInterval(update, 60 * 1000);
 })();
